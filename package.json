@@ -8,6 +8,7 @@
     "db:reset": "sequelize db:migrate:undo:all & sequelize db:migrate & sequelize db:seed:all"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.3.1",
