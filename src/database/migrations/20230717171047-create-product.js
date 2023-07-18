@@ -24,17 +24,17 @@ module.exports = {
       brandId: {
         type: Sequelize.INTEGER
       },
-      stock: {
+      categoryId: {
         type: Sequelize.INTEGER
       },
-      subCategy: {
-        type: Sequelize.STRING
+      stock: {
+        type: Sequelize.INTEGER
       },
       cuota: {
         type: Sequelize.INTEGER
       },
-      visible:{
-        type : Sequelize.BOOLEAN
+      visible: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

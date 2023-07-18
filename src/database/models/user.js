@@ -10,7 +10,26 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      
+      // Relación con la tabla de Direcciones
+      User.belongsTo(models.Address, {
+        foreignKey: 'addressId',
+        as: 'address',
+        onDelete: 'cascade'
+      });
+
+      // Relación con la tabla de Roles
+      User.belongsTo(models.Rol, {
+        foreignKey: 'rolId',
+        as: 'rol'
+      });
+
+      // Relación con la tabla de Ordenes
+      User.hasMany(models.Order, {
+        foreignKey: 'userId',
+        as: 'orders',
+        onDelete: 'cascade'
+      });
     }
   }
   User.init({
@@ -20,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.INTEGER,
     email: DataTypes.STRING,
     rolId: DataTypes.INTEGER,
-    addressId: DataTypes.INTEGER
+    addressId: { type: DataTypes.INTEGER, defaultValue: 2 }
   }, {
     sequelize,
     modelName: 'User',
