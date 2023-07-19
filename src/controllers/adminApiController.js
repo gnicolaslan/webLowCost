@@ -1,14 +1,56 @@
-const db = require('../database/models');
+const createResponseError = require('../helpers/createResponseError');
+const { getAllUsers, getAllProducts, createNewProduct } = require('../services/adminServices');
 
 module.exports = {
-    showUsers : async (req,res) =>{
+    showListUsers : async (req,res) =>{
+        try {
+            const users = await getAllUsers();
 
+            return res.status(200).json({
+                ok : true,
+                data : users,
+                meta : {
+                    status : 200,
+                    total : users.length,
+                }
+            })
+        } catch (error) {
+            return createResponseError(res,error)
+        }
     },
-    showProducts : async (req,res) =>{
+    showListProducts : async (req,res) =>{
+        try {
+            const products = await getAllProducts();
 
+            return res.status(200).json({
+                ok : true,
+                data : products,
+                meta : {
+                    status : 200,
+                    total : products.length,
+                }
+            })
+        } catch (error) {
+            return createResponseError(res,error)
+        }
     },
     createProduct : async (req,res) =>{
+        try {
+            const newProduct = await createNewProduct(req.body);
 
+
+             return res.status(200).json({
+                ok : true,
+                data : newProduct,
+                meta : {
+                    status : 200,
+                    total : newProduct.length,
+                    url : `/api/product/detail/${newProduct.id}`
+                }
+            }) 
+        } catch (error) {
+            return createResponseError(res,error)            
+        }
     },
     deleteProduct : async (req,res) =>{
 
