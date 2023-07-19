@@ -1,5 +1,5 @@
 const createResponseError = require('../helpers/createResponseError');
-const { getAllUsers, getAllProducts, createNewProduct } = require('../services/adminServices');
+const { getAllUsers, getAllProducts, createNewProduct, deleteProduct } = require('../services/adminServices');
 
 module.exports = {
     showListUsers : async (req,res) =>{
@@ -53,7 +53,25 @@ module.exports = {
         }
     },
     deleteProduct : async (req,res) =>{
+        try {
+            const {id} = req.params
+            const deletedProduct = await deleteProduct(id);
 
+            return res.status(200).json({
+                ok : true,
+                message : 'Product deleted with sucess',
+                meta : {
+                    status : 200,
+                    total : 1
+                },
+                data : {
+                    deletedProduct
+                }
+            })
+      
+        } catch (error) {
+            return createResponseError(res,error)                        
+        }
     },
     editProduct : async (req,res) =>{
 

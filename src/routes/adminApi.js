@@ -1,5 +1,5 @@
 var express = require('express');
-const { showListUsers, showListProducts, createProduct } = require('../controllers/adminApiController');
+const { showListUsers, showListProducts, createProduct, deleteProduct } = require('../controllers/adminApiController');
 var router = express.Router();
 
 
@@ -8,5 +8,6 @@ router
 .get('/users',showListUsers)
 .get('/products',showListProducts)
 .post('/create',createProduct)
+.delete('/:id',deleteProduct)
 
 module.exports = router;
