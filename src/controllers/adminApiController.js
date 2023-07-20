@@ -1,5 +1,5 @@
 const createResponseError = require('../helpers/createResponseError');
-const { getAllUsers, getAllProducts, createNewProduct, deleteProduct } = require('../services/adminServices');
+const { getAllUsers, getAllProducts, createNewProduct, deleteProduct, productToEdit, editProduct } = require('../services/adminServices');
 
 module.exports = {
     showListUsers : async (req,res) =>{
@@ -73,7 +73,40 @@ module.exports = {
             return createResponseError(res,error)                        
         }
     },
-    editProduct : async (req,res) =>{
+    getEditProduct : async (req,res) =>{
+        try {
+            const product = await productToEdit(req.params.id)
 
+            return res.status(200).json({
+                ok : true,
+                data : product,
+                meta : {
+                  status : 200,
+                  total : 1
+                }
+              })
+        } catch (error) {
+            return createResponseError(res,error)                                    
+        }
+    },
+    saveEditProduct : async (req,res) =>{
+        try {
+            const {id} = req.params
+            const saveProduct = await editProduct(req.body,id)
+
+            return res.status(200).json({
+                ok : true,
+                meta : {
+                  status : 200,
+                  total : 1,
+                  url : `/api/product/detail/${id}`
+                },
+                data : {
+                  editedProduct : saveProduct,
+                }
+              })
+        } catch (error) {
+            return createResponseError(res,error)                        
+        }
     },
 }
