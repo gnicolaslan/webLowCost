@@ -1,5 +1,5 @@
 const db = require('../database/models');
-const CreateResponseError = require('../helpers/CreateResponseError');
+const CreateResponseError = require('../helpers/createResponseError');
 const { getUserById, verifyUserByEmail, updateInfoUser } = require('../services/userServices');
 
 module.exports = {

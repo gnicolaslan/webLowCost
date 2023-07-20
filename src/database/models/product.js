@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       brandId: DataTypes.INTEGER,
       categoryId: DataTypes.INTEGER,
       stock: DataTypes.INTEGER,
-      cuota: DataTypes.INTEGER,
+      offer: DataTypes.BOOLEAN,
       visible: DataTypes.BOOLEAN,
     },
     {

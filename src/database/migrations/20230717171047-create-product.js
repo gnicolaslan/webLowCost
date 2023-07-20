@@ -30,8 +30,8 @@ module.exports = {
       stock: {
         type: Sequelize.INTEGER
       },
-      cuota: {
-        type: Sequelize.INTEGER
+      offer: {
+        type: Sequelize.BOOLEAN
       },
       visible: {
         type: Sequelize.BOOLEAN

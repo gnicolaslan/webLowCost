@@ -13,25 +13,25 @@ module.exports = {
       };
     }
   },
-  updateInfoUser : async (id,dataUser) => {
+  updateInfoUser: async (id, dataUser) => {
     try {
-        const userUpdated = await db.User.update({
-            name : dataUser.name,
-            surname : dataUser.surname,
-            phone : dataUser.phone
-        },
+      const userUpdated = await db.User.update({
+        name: dataUser.name,
+        surname: dataUser.surname,
+        phone: dataUser.phone
+      },
         {
-            where : { id:id }
+          where: { id: id }
         })
 
-        return userUpdated
-        
+      return userUpdated
+
     } catch (error) {
-        console.log(error);
-        throw {
-          status: 500,
-          message: error.message,
-        };        
+      console.log(error);
+      throw {
+        status: 500,
+        message: error.message,
+      };
     }
   },
   verifyUserByEmail: async (email) => {

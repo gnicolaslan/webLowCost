@@ -13,7 +13,7 @@ module.exports = {
           brandId: 1,
           categoryId: 1,
           stock: 10,
-          cuota: 12,
+          offer: true,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -26,7 +26,7 @@ module.exports = {
           brandId: 2,
           categoryId: 2,
           stock: 8,
-          cuota: 12,
+          offer: true,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -39,7 +39,7 @@ module.exports = {
           brandId: 3,
           categoryId: 3,
           stock: 15,
-          cuota: 12,
+          offer: true,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -52,7 +52,7 @@ module.exports = {
           brandId: 4,
           categoryId: 4,
           stock: 5,
-          cuota: 12,
+          offer: true,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -65,7 +65,7 @@ module.exports = {
           brandId: 5,
           categoryId: 5,
           stock: 20,
-          cuota: 12,
+          offer: true,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -78,7 +78,7 @@ module.exports = {
           brandId: 1,
           categoryId: 6,
           stock: 12,
-          cuota: 12,
+          offer: true,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -91,7 +91,7 @@ module.exports = {
           brandId: 2,
           categoryId: 7,
           stock: 6,
-          cuota: 12,
+          offer: false,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -104,7 +104,7 @@ module.exports = {
           brandId: 3,
           categoryId: 8,
           stock: 18,
-          cuota: 12,
+          offer: false,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -117,7 +117,7 @@ module.exports = {
           brandId: 4,
           categoryId: 9,
           stock: 10,
-          cuota: 12,
+          offer: false,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -130,7 +130,7 @@ module.exports = {
           brandId: 5,
           categoryId: 10,
           stock: 7,
-          cuota: 12,
+          offer: false,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -143,7 +143,7 @@ module.exports = {
           brandId: 1,
           categoryId: 11,
           stock: 9,
-          cuota: 12,
+          offer: false,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -156,7 +156,7 @@ module.exports = {
           brandId: 2,
           categoryId: 12,
           stock: 14,
-          cuota: 12,
+          offer: false,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -169,7 +169,7 @@ module.exports = {
           brandId: 3,
           categoryId: 13,
           stock: 11,
-          cuota: 12,
+          offer: false,
           visible: true,
           createdAt: new Date(),
           updatedAt: new Date()
