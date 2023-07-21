@@ -1,11 +1,47 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Nuevo Producto</title>
+</head>
+
+<body>
+  <h1>Crear Nuevo Producto</h1>
+  <form action="/api/admin/create" method="POST" enctype="multipart/form-data">
+    <!-- Campos del formulario -->
+    <label for="name">Nombre:</label>
+    <input type="text" name="name" id="name" required><br>
+
+    <label for="price">Precio:</label>
+    <input type="number" name="price" id="price" required><br>
+
+    <label for="description">Descripción:</label>
+    <textarea name="description" id="description" rows="4" required></textarea><br>
+
+    <label for="brandId">ID de Marca:</label>
+    <input type="number" name="brandId" id="brandId" required><br>
+
+    <label for="categoryId">ID de Categoría:</label>
+    <input type="number" name="categoryId" id="categoryId" required><br>
+
+    <label for="stock">Stock:</label>
+    <input type="number" name="stock" id="stock" required><br>
+
+    <label for="offer">Oferta:</label>
+    <input type="checkbox" name="offer" id="offer"><br>
+
+    <label for="visible">Visible:</label>
+    <input type="checkbox" name="visible" id="visible"><br>
+
+    <!-- Campo para cargar imágenes -->
+    <label for="imageFile">Seleccionar imágenes:</label>
+    <input type="file" name="imageFile" id="imageFile" multiple accept="image/*">
+
+    <!-- Botón para enviar el formulario -->
+    <input type="submit" value="Crear Producto">
+  </form>
+</body>
+
 </html>

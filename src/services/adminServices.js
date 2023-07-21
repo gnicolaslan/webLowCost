@@ -1,4 +1,5 @@
 const db = require("../database/models");
+const cloudinary = require('cloudinary').v2;
 
 module.exports = {
   getAllUsers: async () => {
@@ -16,19 +17,15 @@ module.exports = {
   getAllProducts: async () => {
     try {
       const products = await db.Product.findAll({
-        include : [
-            {
-                association: "images",
-                attributes: ["name"],
-            },
-            {
-                association: "category",
-                attributes: ["id", "name"],
-            },
-            {
-                association : "brand",
-                attributes : ['id','name']
-            }
+        include: [
+          {
+            association: "category",
+            attributes: ["id", "name"],
+          },
+          {
+            association: "brand",
+            attributes: ['id', 'name']
+          }
         ]
       });
 
@@ -40,32 +37,46 @@ module.exports = {
       };
     }
   },
-  createNewProduct: async (body) => {
+  createNewProduct: async (body, imageFiles) => {
     try {
+      console.log("Datos recibidos en req.body:", body);
+      console.log("Datos de la imagen:", imageFiles)
       const {
         name,
         price,
-        discount,
         description,
         brandId,
         categoryId,
         stock,
-        cuota,
+        offer,
         visible,
       } = body;
+
+      const imageUrls = [];
+
+      // Subir cada imagen a Cloudinary y obtener las URLs generadas
+      for (const imageFile of imageFiles) {
+        const result = await cloudinary.uploader.upload(imageFile.path);
+        imageUrls.push(result.secure_url);
+      }
+
+      const imageUrlString = JSON.stringify(imageUrls);
+
+      // Crear el producto y almacenar el URL de la imagen
       const newProduct = await db.Product.create({
         name: name,
         price: +price,
-        discount: discount,
         description: description,
         brandId: +brandId,
         categoryId: +categoryId,
         stock: +stock,
-        cuota: +cuota,
+        offer: offer,
         visible: visible,
+        imageUrls: imageUrlString,
       });
 
       return newProduct;
+
     } catch (error) {
       throw {
         status: error.status || 500,
@@ -75,9 +86,7 @@ module.exports = {
   },
   deleteProduct: async (id) => {
     try {
-      const product = await db.Product.findByPk(id, {
-        include: [{ model: db.Image, as: "images" }],
-      });
+      const product = await db.Product.findByPk(id);
       await product.destroy();
     } catch (error) {
       throw {
@@ -90,10 +99,6 @@ module.exports = {
     try {
       const product = await db.Product.findByPk(id, {
         include: [
-          {
-            association: "images",
-            attributes: ["name"],
-          },
           {
             association: "category",
             attributes: ["name"],
@@ -118,31 +123,29 @@ module.exports = {
       const {
         name,
         price,
-        discount,
         description,
         brandId,
         categoryId,
         stock,
-        cuota,
+        offer,
         visible,
       } = body;
 
       const editedProduct = await db.Product.update(
         {
-           name,
-           price : +price,
-           discount,
-           description,
-           brandId : +brandId,
-           categoryId : +categoryId,
-           stock : +stock,
-           cuota : +cuota,
-           visible,
+          name,
+          price: +price,
+          description,
+          brandId: +brandId,
+          categoryId: +categoryId,
+          stock: +stock,
+          offer: +offer,
+          visible,
         },
         {
-            where : {
-                id : id
-            }
+          where: {
+            id: id
+          }
         }
       );
 

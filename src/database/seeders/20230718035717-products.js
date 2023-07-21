@@ -8,7 +8,6 @@ module.exports = {
         {
           name: "Refrigerador A",
           price: 50000,
-          discount: false,
           description: "Refrigerador de alta capacidad",
           brandId: 1,
           categoryId: 1,
@@ -21,7 +20,6 @@ module.exports = {
         {
           name: "Lavadora B",
           price: 35000,
-          discount: false,
           description: "Lavadora de carga frontal",
           brandId: 2,
           categoryId: 2,
@@ -34,7 +32,6 @@ module.exports = {
         {
           name: "Televisor C",
           price: 20000,
-          discount: true,
           description: "Televisor de 50 pulgadas",
           brandId: 3,
           categoryId: 3,
@@ -47,7 +44,6 @@ module.exports = {
         {
           name: "Aire Acondicionado D",
           price: 40000,
-          discount: false,
           description: "Aire acondicionado portátil",
           brandId: 4,
           categoryId: 4,
@@ -60,7 +56,6 @@ module.exports = {
         {
           name: "Licuadora E",
           price: 5000,
-          discount: true,
           description: "Licuadora de alta potencia",
           brandId: 5,
           categoryId: 5,
@@ -73,7 +68,6 @@ module.exports = {
         {
           name: "Microondas F",
           price: 3000,
-          discount: false,
           description: "Microondas con función de grill",
           brandId: 1,
           categoryId: 6,
@@ -86,7 +80,6 @@ module.exports = {
         {
           name: "Aspiradora G",
           price: 6000,
-          discount: true,
           description: "Aspiradora sin bolsa",
           brandId: 2,
           categoryId: 7,
@@ -99,7 +92,6 @@ module.exports = {
         {
           name: "Cafetera H",
           price: 8000,
-          discount: false,
           description: "Cafetera de cápsulas",
           brandId: 3,
           categoryId: 8,
@@ -112,7 +104,6 @@ module.exports = {
         {
           name: "Tostadora I",
           price: 2500,
-          discount: true,
           description: "Tostadora de acero inoxidable",
           brandId: 4,
           categoryId: 9,
@@ -125,7 +116,6 @@ module.exports = {
         {
           name: "Horno J",
           price: 15000,
-          discount: false,
           description: "Horno eléctrico de convección",
           brandId: 5,
           categoryId: 10,
@@ -138,7 +128,6 @@ module.exports = {
         {
           name: "Estufa K",
           price: 12000,
-          discount: false,
           description: "Estufa de gas con cuatro quemadores",
           brandId: 1,
           categoryId: 11,
@@ -151,7 +140,6 @@ module.exports = {
         {
           name: "Batidora L",
           price: 4000,
-          discount: true,
           description: "Batidora con accesorios intercambiables",
           brandId: 2,
           categoryId: 12,
@@ -164,7 +152,6 @@ module.exports = {
         {
           name: "Plancha M",
           price: 2000,
-          discount: true,
           description: "Plancha a vapor con control de temperatura",
           brandId: 3,
           categoryId: 13,

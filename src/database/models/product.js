@@ -16,13 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         as: 'brand',
       });
 
-      // Relación con la tabla de Imagenes
-      Product.hasMany(models.Image, {
-        as: 'images',
-        foreignKey: 'productId',
-        onDelete: 'cascade'
-      });
-
       // Relación con la tabla de Ordenes
       Product.belongsToMany(models.Order, {
         foreignKey: 'productId',
@@ -37,13 +30,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       price: DataTypes.INTEGER,
-      discount: DataTypes.BOOLEAN,
-      description: DataTypes.STRING,
+      description: DataTypes.TEXT,
       brandId: DataTypes.INTEGER,
       categoryId: DataTypes.INTEGER,
       stock: DataTypes.INTEGER,
       offer: DataTypes.BOOLEAN,
       visible: DataTypes.BOOLEAN,
+      imageUrls: DataTypes.TEXT
     },
     {
       sequelize,

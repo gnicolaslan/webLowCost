@@ -10,10 +10,6 @@ module.exports = {
                         association: 'category',
                         attributes: ['id', 'name'],
                     },
-                    {
-                        association: 'images',
-                        attributes: ['name']
-                    }
                 ]
             });
             return product
@@ -29,12 +25,6 @@ module.exports = {
         try {
             const product = await db.Product.findAll({
 
-                include: [
-                    {
-                        association: 'images',
-                        attributes: ['name']
-                    }
-                ],
                 where: {
                     [Op.or]: [
                         {
@@ -62,10 +52,7 @@ module.exports = {
     getProductsByCategory: async (category) => {
         try {
             const products = db.Product.findAll({
-                include: {
-                    association: 'images',
-                    attributes: ['name']
-                },
+                
                 where: { categoryId: category }
             })
             return products
@@ -80,10 +67,7 @@ module.exports = {
     getProductsByBrand: async (brand) => {
         try {
             const products = db.Product.findAll({
-                include: {
-                    association: 'images',
-                    attributes: ['name']
-                },
+                
                 where: { brandId: brand }
             })
             return products
@@ -98,10 +82,7 @@ module.exports = {
     getProductsByOffer: async () => {
         try {
             const products = await db.Product.findAll({
-                include: {
-                    association: 'images',
-                    attributes: ['name']
-                },
+                
                 where: { offer: true }
             });
 

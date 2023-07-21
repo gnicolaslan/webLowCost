@@ -15,9 +15,6 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
-      discount: {
-        type: Sequelize.BOOLEAN
-      },
       description: {
         type: Sequelize.STRING
       },
@@ -35,6 +32,9 @@ module.exports = {
       },
       visible: {
         type: Sequelize.BOOLEAN
+      },
+      imageUrls: {
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
