@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const cors = require('cors')
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -13,13 +14,14 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 
-
 const indexRouter = require('./routes/index');
 const usersApiRouter = require('./routes/usersApi');
 const productsApiRouter = require('./routes/productsApi')
 const adminRouter = require('./routes/adminApi');
 
 const app = express();
+
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
