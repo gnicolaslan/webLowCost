@@ -36,6 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     surname: DataTypes.STRING,
     password: DataTypes.STRING,
+    token: DataTypes.STRING,
+    checked: { type : DataTypes.BOOLEAN, defaultValue : false },
     phone: DataTypes.INTEGER,
     email: DataTypes.STRING,
     rolId: DataTypes.INTEGER,
