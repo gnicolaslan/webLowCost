@@ -3,9 +3,6 @@ const CreateResponseError = require('../helpers/createResponseError');
 const { getUserById, verifyUserByEmail, updateInfoUser } = require('../services/userServices');
 
 module.exports = {
-    user : async (req,res) =>{
-        return res.send('welcome user')
-    },
     detail : async (req,res) =>{
         try {
             const id = req.params.id;
