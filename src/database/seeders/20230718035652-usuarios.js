@@ -2,7 +2,8 @@
 
 /** @type {import('sequelize-cli').Migration} */
 
-const bcryptjs = require('bcryptjs')
+const bcryptjs = require('bcryptjs');
+const generateTokenRandom = require('../../helpers/generateTokenRandom');
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
@@ -12,7 +13,7 @@ module.exports = {
           name: "Admin",
           surname: "Test",
           password: bcryptjs.hashSync('123456', 10),
-          token : null,
+          token : generateTokenRandom(),
           checked : null,
           phone: 1139034290,
           email: "admin@test.com",
@@ -25,7 +26,7 @@ module.exports = {
           name: "User",
           surname: "Test",
           password: bcryptjs.hashSync('123456', 10),
-          token : null,
+          token : generateTokenRandom(),
           checked : null,
           phone: 1139034290,
           email: "user@test.com",

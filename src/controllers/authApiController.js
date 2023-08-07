@@ -65,11 +65,8 @@ const login = async (req, res) => {
     if (!user) {
       throw createHttpError(400, "El usuario no existe");
     }
-    console.log("Stored Hash:", user.dataValues.password);
 
     const isPasswordValid = await compare(password, user.dataValues.password);
-
-    console.log("Password Valid:", isPasswordValid);
 
     if (isPasswordValid) {
       return res.status(200).json({
@@ -90,7 +87,15 @@ const login = async (req, res) => {
   }
 };
 
+const profile = async (req,res) => {
+  return res.status(200).json({
+    ok : true,
+    user : req.user
+  })
+}
+
 module.exports = {
   register,
   login,
+  profile
 };

@@ -1,6 +1,6 @@
 var express = require('express');
-const { user, detail, verifyByEmail, update } = require('../controllers/usersApiController');
-const { register, login } = require('../controllers/authApiController');
+const { verifyByEmail, update } = require('../controllers/usersApiController');
+const { register, login, profile } = require('../controllers/authApiController');
 const checkToken = require('../middlewares/checkToken');
 var router = express.Router();
 
@@ -11,6 +11,6 @@ router
 .post('/login',login)
 .put('/:id',update)
 .get('/verify',verifyByEmail)  
-.get('/:id',checkToken,detail)
+.get('/profile',checkToken,profile)
 
 module.exports = router;
