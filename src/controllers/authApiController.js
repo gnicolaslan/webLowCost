@@ -8,14 +8,14 @@ const generateJWT = require("../helpers/generateJWT");
 
 const register = async (req, res) => {
   try {
-    const { name, surname, password, phone, email } = req.body;
+    const { name,surname, email,phone,password} = req.body;
     if (
-      [name, surname, password, phone, email].includes("") ||
+      [name,surname, email,phone,password].includes("") ||
       !name ||
       !surname ||
-      !password ||
+      !email || 
       !phone ||
-      !email
+      !password
     ) {
       throw createHttpError(400, "Se requiren todos los campos");
     }
