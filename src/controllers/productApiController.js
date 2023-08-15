@@ -110,6 +110,7 @@ module.exports = {
     allBrands: async (req, res) => {
         try {
             const brands = await getAllBrands()
+            /* console.log(brands); */
 
             return res.status(200).json({
                 ok: true,
@@ -126,6 +127,7 @@ module.exports = {
     allCategories: async (req, res) => {
         try {
             const categories = await getAllCategories()
+            console.log("categorias:", categories);
 
             return res.status(200).json({
                 ok: true,

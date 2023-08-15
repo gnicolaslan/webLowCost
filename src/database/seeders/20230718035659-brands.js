@@ -7,46 +7,55 @@ module.exports = {
       [
         {
           name: "Electrolux",
+          image: 'electrolux.png',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           name: "Whirlpool",
+          image: 'whirlpool.png',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           name: "Mabe",
+          image: 'mabe.png',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           name: "Samsung",
+          image: 'samsung.png',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           name: "LG",
+          image: 'lg.png',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           name: "Philco",
+          image: 'philco.png',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           name: "Consul",
+          image: 'consul.png',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           name: "Brastemp",
+          image: 'brastemp.png',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
           name: "General Electric",
+          image: 'general.png',
           createdAt: new Date(),
           updatedAt: new Date()
         },

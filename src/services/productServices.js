@@ -52,7 +52,7 @@ module.exports = {
     getProductsByCategory: async (category) => {
         try {
             const products = db.Product.findAll({
-                
+
                 where: { categoryId: category }
             })
             return products
@@ -67,7 +67,7 @@ module.exports = {
     getProductsByBrand: async (brand) => {
         try {
             const products = db.Product.findAll({
-                
+
                 where: { brandId: brand }
             })
             return products
@@ -82,7 +82,7 @@ module.exports = {
     getProductsByOffer: async () => {
         try {
             const products = await db.Product.findAll({
-                
+
                 where: { offer: true }
             });
 
@@ -102,7 +102,9 @@ module.exports = {
 
     getAllBrands: async () => {
         try {
-            const brands = await db.Brand.findAll()
+            const brands = await db.Brand.findAll({
+                attributes: ['id', 'name', 'image', 'createdAt', 'updatedAt'],
+            });
 
             return brands
         } catch (error) {
