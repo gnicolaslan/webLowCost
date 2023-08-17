@@ -88,9 +88,14 @@ const login = async (req, res) => {
 };
 
 const profile = async (req,res) => {
+  const user = req.user;
+  const address = await user.getAddress();
   return res.status(200).json({
     ok : true,
-    user : req.user
+    user : {
+      ...user.dataValues,
+      address: address.dataValues
+    }
   })
 }
 
