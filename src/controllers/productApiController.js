@@ -127,7 +127,7 @@ module.exports = {
     allCategories: async (req, res) => {
         try {
             const categories = await getAllCategories()
-            console.log("categorias:", categories);
+        /*     console.log("categorias:", categories); */
 
             return res.status(200).json({
                 ok: true,

@@ -87,17 +87,23 @@ const login = async (req, res) => {
   }
 };
 
-const profile = async (req,res) => {
-  const user = req.user;
-  const address = await user.getAddress();
-  return res.status(200).json({
-    ok : true,
-    user : {
-      ...user.dataValues,
-      address: address.dataValues
-    }
-  })
-}
+const profile = async (req, res) => {
+  try {
+    const userId = req.params.id;  
+    const user = await db.User.findByPk(userId);  
+    const address = await user.getAddress();
+    
+    return res.status(200).json({
+      ok: true,
+      user: {
+        ...user.dataValues,
+        address: address.dataValues
+      }
+    });
+  } catch (error) {
+    createResponseError(res, error);
+  }
+};
 
 module.exports = {
   register,
