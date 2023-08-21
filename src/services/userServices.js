@@ -15,16 +15,19 @@ module.exports = {
   },
   updateInfoUser: async (id, dataUser) => {
     try {
-      const userUpdated = await db.User.update({
+      const userUpdated = await db.User.findByPk(id);
+
+      if (!userUpdated) {
+        throw new Error("User not found");
+      }
+
+      await userUpdated.update({
         name: dataUser.name,
         surname: dataUser.surname,
-        phone: dataUser.phone
-      },
-        {
-          where: { id: id }
-        })
+        phone: dataUser.phone,
+      });
 
-      return userUpdated
+      return userUpdated;
 
     } catch (error) {
       console.log(error);
