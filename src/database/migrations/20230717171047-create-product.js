@@ -16,12 +16,24 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       brandId: {
         type: Sequelize.INTEGER
       },
       categoryId: {
+        type: Sequelize.INTEGER
+      },
+      weight: {
+        type: Sequelize.INTEGER
+      },
+      height: {
+        type: Sequelize.INTEGER
+      },
+      width: {
+        type: Sequelize.INTEGER
+      },
+      length: {
         type: Sequelize.INTEGER
       },
       stock: {
