@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     checked: { type : DataTypes.BOOLEAN, defaultValue : false },
     phone: DataTypes.INTEGER,
     email: DataTypes.STRING,
+    resetCode: DataTypes.STRING,
     rolId: DataTypes.INTEGER,
     addressId: { type: DataTypes.INTEGER, defaultValue: 2 }
   }, {

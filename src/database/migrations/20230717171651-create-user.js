@@ -30,6 +30,9 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
+      resetCode : {
+        type: Sequelize.STRING
+      },
       rolId: {
         type: Sequelize.INTEGER
       },
