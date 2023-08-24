@@ -1,6 +1,8 @@
 const db = require("../database/models");
 const CreateResponseError = require("../helpers/createResponseError");
 const transporter = require("../helpers/mailer");
+const bcrypt = require('bcryptjs'); // Import the bcryptjs library
+
 const {
   getUserById,
   verifyUserByEmail,
@@ -103,11 +105,11 @@ module.exports = {
       return CreateResponseError(res, error);
     }
   },
-  resetPassword: async (req, res) => {
+  getCodeToResetPassword: async (req, res) => {
     const { email } = req.params;
-    const { code } = req.body;
-    const user = db.User.findOne({ email: email, restCode: code });
-
+    const user = await db.User.findOne({
+      where: { email: email }
+    });
     if (!user) {
       return res
         .status(400)
@@ -121,7 +123,10 @@ module.exports = {
       codeVerify += character;
     }
 
-    console.log(codeVerify);
+
+    user.resetCode = codeVerify; 
+    await user.save();
+
     const mailOptions = {
       from: `LowCost ${process.env.EMAIL}`,
       to: email,
@@ -174,4 +179,29 @@ module.exports = {
       res.status(500).json({ ok: false, message: 'Error al enviar el correo electrónico' });
     }
   },
+  resetPassword: async (req,res) => {
+    const { email } = req.params;
+    const decodedEmail = decodeURIComponent(email.trim()); 
+    const { code, newPassword } = req.body;
+    const trimmedCode = code.trim(); 
+
+    const user = await db.User.findOne({
+      where: { email: decodedEmail, resetCode: trimmedCode }
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ ok: false, message: "Credenciales Invalidas" });
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10); 
+
+    user.password = hashedPassword;
+    user.resetCode = null;
+    await user.save();
+
+    res.status(200).json({ ok: true, message: "Contraseña restablecida exitosamente" });
+
+    
+  }
 };
