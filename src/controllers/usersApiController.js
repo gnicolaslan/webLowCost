@@ -130,44 +130,34 @@ module.exports = {
     const mailOptions = {
       from: `LowCost ${process.env.EMAIL}`,
       to: email,
-      subject: "Codigo de verificacion: " + codeVerify,
-      html: `
-      <!DOCTYPE html>
-      <html lang="en">
+      subject: "LowCost Web Codigo de verificacion",
+      html: `<!DOCTYPE html>
+      <html lang="es">
       <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Restablecimiento de Contraseña</title>
-          <!-- Agrega el enlace al archivo CSS de Bootstrap -->
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <meta charset="UTF-8">
+        <title>LowCost Web - Plantilla de Correo Electrónico para Restablecimiento de Contraseña</title>
       </head>
-      <body style="font-family: 'Poppins', sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
-          <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#f4f4f4" class="center p-2 m-2">
-              <tr>
-                  <td>
-                      <table align="center" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #ffffff; margin-top: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                          <tr>
-                              <td class="text-center py-4">
-                                  <img src="https://example.com/logo.png" alt="Logo" class="img-fluid" style="max-width: 150px;">
-                                  <h2 class="mt-4">Cambio de Contraseña</h2>
-                                  <p style="padding: 0 20px;">Hemos recibido una solicitud para restablecer la contraseña de tu cuenta. Utiliza el siguiente código para completar el proceso:</p>
-                                  <h1 class="display-4" style="font-weight: bold; color: #007bff; margin-top: 10px;">${codeVerify}</h1>
-                                  <p style="padding: 0 20px;">Si no solicitaste este cambio, puedes ignorar este correo.</p>
-                                  <p>¡Gracias!</p>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td class="bg-light py-3 text-center">
-                                  <p class="m-0">Si tienes alguna pregunta, por favor contáctanos en <a href="mailto:soporte@example.com">soporte@example.com</a></p>
-                              </td>
-                          </tr>
-                      </table>
-                  </td>
-              </tr>
-          </table>
+      <body>
+      <div style="font-family: Helvetica, Arial, sans-serif; min-width: 1000px; overflow: auto; line-height: 2">
+        <div style="margin: 50px auto; width: 70%; padding: 20px 0">
+          <div style="border-bottom: 1px solid #eee">
+            <a href="" style="font-size: 1.4em; color: #00466a; text-decoration: none; font-weight: 600">LowCost Web</a>
+          </div>
+          <p style="font-size: 1.1em">Hola,</p>
+          <p>Gracias por elegir LowCost Web. Utiliza el siguiente código OTP para completar tu Procedimiento de Recuperación de Contraseña. El OTP es válido durante 5 minutos.</p>
+          <h2 style="background: #00466a; margin: 0 auto; width: max-content; padding: 0 10px; color: #fff; border-radius: 4px;">${codeVerify}</h2>
+          <p style="font-size: 0.9em;">Saludos,<br />LowCost Web</p>
+          <hr style="border: none; border-top: 1px solid #eee" />
+          <div style="float: right; padding: 8px 0; color: #aaa; font-size: 0.8em; line-height: 1; font-weight: 300">
+            <p>LowCost Web Inc</p>
+            <p>Pilar</p>
+            <p>Buenos Aires</p>
+          </div>
+        </div>
+      </div>
       </body>
       </html>
-    `,
+      `,
     };
 
     try {
@@ -201,7 +191,5 @@ module.exports = {
     await user.save();
 
     res.status(200).json({ ok: true, message: "Contraseña restablecida exitosamente" });
-
-    
   }
 };
