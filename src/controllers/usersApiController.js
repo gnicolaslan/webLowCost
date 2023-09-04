@@ -1,7 +1,7 @@
 const db = require("../database/models");
 const CreateResponseError = require("../helpers/createResponseError");
 const transporter = require("../helpers/mailer");
-const bcrypt = require('bcryptjs'); // Import the bcryptjs library
+const bcrypt = require("bcryptjs"); // Import the bcryptjs library
 
 const {
   getUserById,
@@ -108,7 +108,7 @@ module.exports = {
   getCodeToResetPassword: async (req, res) => {
     const { email } = req.params;
     const user = await db.User.findOne({
-      where: { email: email }
+      where: { email: email },
     });
     if (!user) {
       return res
@@ -123,8 +123,7 @@ module.exports = {
       codeVerify += character;
     }
 
-
-    user.resetCode = codeVerify; 
+    user.resetCode = codeVerify;
     await user.save();
 
     const mailOptions = {
@@ -163,20 +162,22 @@ module.exports = {
     try {
       const result = await transporter.sendMail(mailOptions);
       console.log(result);
-      res.status(200).json({ ok: true, message: 'Mensaje enviado!' });
+      res.status(200).json({ ok: true, message: "Mensaje enviado!" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ ok: false, message: 'Error al enviar el correo electrónico' });
+      res
+        .status(500)
+        .json({ ok: false, message: "Error al enviar el correo electrónico" });
     }
   },
-  resetPassword: async (req,res) => {
+  resetPassword: async (req, res) => {
     const { email } = req.params;
-    const decodedEmail = decodeURIComponent(email.trim()); 
+    const decodedEmail = decodeURIComponent(email.trim());
     const { code, newPassword } = req.body;
-    const trimmedCode = code.trim(); 
+    const trimmedCode = code.trim();
 
     const user = await db.User.findOne({
-      where: { email: decodedEmail, resetCode: trimmedCode }
+      where: { email: decodedEmail, resetCode: trimmedCode },
     });
 
     if (!user) {
@@ -184,12 +185,51 @@ module.exports = {
         .status(400)
         .json({ ok: false, message: "Credenciales Invalidas" });
     }
-    const hashedPassword = await bcrypt.hash(newPassword, 10); 
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     user.password = hashedPassword;
     user.resetCode = null;
     await user.save();
 
-    res.status(200).json({ ok: true, message: "Contraseña restablecida exitosamente" });
-  }
+    res
+      .status(200)
+      .json({ ok: true, message: "Contraseña restablecida exitosamente" });
+  },
+  finishPurchase: async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const userEmail = email;
+
+      //enviar el correo al usuario
+
+      const mailOptionsUser = {
+        from: `LowCost ${process.env.EMAIL}`,
+        to: userEmail,
+        subject: "LowCost Web, ¡Gracias por comprar en nuestro sitio!",
+        html: `<p>¡Gracias por tu compra!</p>`,
+      };
+
+      //enviar correo al dueño del producto (Correo estatico)
+
+      const ownerEmail = "thiagovalen6@gmail.com";
+
+      const mailOptionsOwner = {
+        from: `LowCost ${process.env.EMAIL}`,
+        to: ownerEmail,
+        subject: "Nueva Compra Realizada",
+        html: `<p>Se ha realizado una nueva compra en tu tienda en línea.</p>`,
+      };
+
+      // Enviar correos electrónicos
+      await transporter.sendMail(mailOptionsUser);
+      await transporter.sendMail(mailOptionsOwner);
+
+
+      res.status(200).json({ ok: true, message: "Compra finalizada y correos enviados correctamente" });
+    } catch {
+      console.log(error);
+      return CreateResponseError(res, error);
+    }
+  },
 };
