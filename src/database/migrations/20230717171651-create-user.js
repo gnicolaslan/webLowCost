@@ -27,6 +27,9 @@ module.exports = {
       phone: {
         type: Sequelize.INTEGER
       },
+      dni: {
+        type: Sequelize.INTEGER
+      },
       email: {
         type: Sequelize.STRING
       },

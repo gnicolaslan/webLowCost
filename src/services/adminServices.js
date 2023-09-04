@@ -4,7 +4,19 @@ const cloudinary = require('cloudinary').v2;
 module.exports = {
   getAllUsers: async () => {
     try {
-      const users = await db.User.findAll();
+      const users = await db.User.findAll({
+        attributes : ['id','name','surname','email','checked','phone'],
+        include: {
+          model:db.Address,
+          attributes:['street','location','province','postalCode'],
+          as: 'address', 
+        },
+        include: {
+          model: db.Rol,
+          as:'rol',
+          attributes: ['name']
+        }
+      });
 
       return users;
     } catch (error) {

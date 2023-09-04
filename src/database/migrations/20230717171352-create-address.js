@@ -12,14 +12,11 @@ module.exports = {
       street: {
         type: Sequelize.STRING
       },
-      postalCode: {
+      numberAddress: {
         type: Sequelize.INTEGER
       },
-      province: {
-        type: Sequelize.STRING
-      },
-      location: {
-        type: Sequelize.STRING
+      postalCode: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
