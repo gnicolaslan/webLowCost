@@ -197,36 +197,38 @@ module.exports = {
   },
   finishPurchase: async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email, cartItems } = req.body;
 
       const userEmail = email;
-
-      //enviar el correo al usuario
+      const sellerEmail = process.env.OWNER_EMAIL;
+      const cartDetails = cartItems
+        .map((item) => `${item.name} (${item.quantity})`)
+        .join(", ");
 
       const mailOptionsUser = {
         from: `LowCost ${process.env.EMAIL}`,
         to: userEmail,
         subject: "LowCost Web, ¡Gracias por comprar en nuestro sitio!",
-        html: `<p>¡Gracias por tu compra!</p>`,
-      };
-
-      //enviar correo al dueño del producto (Correo estatico)
-
-      const ownerEmail = "thiagovalen6@gmail.com";
-
-      const mailOptionsOwner = {
-        from: `LowCost ${process.env.EMAIL}`,
-        to: ownerEmail,
-        subject: "Nueva Compra Realizada",
-        html: `<p>Se ha realizado una nueva compra en tu tienda en línea.</p>`,
-      };
-
-      // Enviar correos electrónicos
+        html: `<p>Se ha realizado una nueva compra en tu tienda en línea.</p>
+               <p>Detalles de la compra: ${cartDetails}</p>`,      };
       await transporter.sendMail(mailOptionsUser);
-      await transporter.sendMail(mailOptionsOwner);
 
+      const mailOptionsSeller = {
+        from: `LowCost ${process.env.EMAIL}`,
+        to: sellerEmail,
+        subject: "Nueva Compra Realizada",
+        html: `<p>Se ha realizado una nueva compra en tu tienda en línea.</p>
+               <p>Detalles de la compra: ${cartDetails}</p>`,
+      };
+      await transporter.sendMail(mailOptionsSeller);
 
-      res.status(200).json({ ok: true, message: "Compra finalizada y correos enviados correctamente" });
+      res.status(200).json({
+        ok: true,
+        data: {
+          userEmail: userEmail,
+        },
+        message: "Compra finalizada y correos enviados correctamente",
+      });
     } catch {
       console.log(error);
       return CreateResponseError(res, error);
