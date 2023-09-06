@@ -78,6 +78,21 @@ module.exports = {
             }
         }
     },
+    getLastProductInDB: async () => {
+        try {
+          const lastProduct = await db.Product.findOne({
+            order: [
+                ['createdAt','DESC']
+            ],
+          });
+          return lastProduct;
+        } catch (error) {
+          throw {
+            status: 500,
+            message: error.message,
+          };
+        }
+      },
 
     getProductsByOffer: async () => {
         try {
