@@ -2,6 +2,7 @@ const db = require("../database/models");
 const CreateResponseError = require("../helpers/createResponseError");
 const transporter = require("../helpers/mailer");
 const bcrypt = require("bcryptjs"); // Import the bcryptjs library
+require('dotenv').config()
 
 const {
   getUserById,
@@ -197,20 +198,33 @@ module.exports = {
   },
   finishPurchase: async (req, res) => {
     try {
-      const { email, cartItems } = req.body;
+      const { values, cartItems } = req.body;
 
-      const userEmail = email;
+      console.log('Datos recibidos en el servidor:', req.body);
+
+      const userEmail = values.email;
       const sellerEmail = process.env.OWNER_EMAIL;
       const cartDetails = cartItems
         .map((item) => `${item.name} (${item.quantity})`)
         .join(", ");
+
+      console.log("userEmail:", userEmail);
+      console.log("sellerEmail:", sellerEmail);
+
+      if (!userEmail || !sellerEmail) {
+        return res.status(400).json({
+          ok: false,
+          error: "No se ha definido el destinatario del correo electrónico",
+        });
+      }
 
       const mailOptionsUser = {
         from: `LowCost ${process.env.EMAIL}`,
         to: userEmail,
         subject: "LowCost Web, ¡Gracias por comprar en nuestro sitio!",
         html: `<p>Se ha realizado una nueva compra en tu tienda en línea.</p>
-               <p>Detalles de la compra: ${cartDetails}</p>`,      };
+               <p>Detalles de la compra: ${cartDetails}</p>`,
+      };
       await transporter.sendMail(mailOptionsUser);
 
       const mailOptionsSeller = {
@@ -229,9 +243,12 @@ module.exports = {
         },
         message: "Compra finalizada y correos enviados correctamente",
       });
-    } catch {
-      console.log(error);
-      return CreateResponseError(res, error);
+    } catch (error) {
+      console.log(error); // Registra el error en la consola para fines de depuración
+      return res.status(500).json({
+        ok: false,
+        error: "Hubo un error al procesar la compra y enviar correos",
+      });
     }
-  },
-};
+  }
+}

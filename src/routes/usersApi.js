@@ -7,13 +7,13 @@ var router = express.Router();
 
 /* /api/users */
 router
-.post('/register',register)
-.post('/login',login)
-.put('/:id',update)
-.get('/verify',verifyByEmail)  
-.get('/profile/:id',checkToken,profile)
-.post('/auth/reset-password/:email',getCodeToResetPassword)
-.post('/reset-password/:email',resetPassword)
-.post('/finish-purchase',finishPurchase)
+    .post('/register', register)
+    .post('/login', login)
+    .put('/:id', update)
+    .get('/verify', verifyByEmail)
+    .get('/profile/:id', checkToken, profile)
+    .post('/auth/reset-password/:email', getCodeToResetPassword)
+    .post('/reset-password/:email', resetPassword)
+    .post('/finish-purchase', finishPurchase)
 
 module.exports = router;
