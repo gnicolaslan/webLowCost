@@ -204,9 +204,14 @@ module.exports = {
 
       const userEmail = values.email;
       const sellerEmail = process.env.OWNER_EMAIL;
-      const cartDetails = cartItems
-        .map((item) => `${item.name} (${item.quantity})`)
-        .join(", ");
+
+      const cartDetails = cartItems.map((item) => {
+        return `
+          Producto: ${item.name}
+          Precio: ${item.price}
+          Cantidad: ${item.quantity}
+        `;
+      }).join("\n\n");
 
       console.log("userEmail:", userEmail);
       console.log("sellerEmail:", sellerEmail);
@@ -221,19 +226,39 @@ module.exports = {
       const mailOptionsUser = {
         from: `LowCost ${process.env.EMAIL}`,
         to: userEmail,
-        subject: "LowCost Web, ¡Gracias por comprar en nuestro sitio!",
-        html: `<p>Se ha realizado una nueva compra en tu tienda en línea.</p>
-               <p>Detalles de la compra: ${cartDetails}</p>`,
+        subject: "Gracias por comprar en LowCost Web",
+        html: `
+          <p>Hola ${values.name},</p>
+          <p>Gracias por comprar en nuestro sitio. Aquí están los detalles de tu compra:</p>
+          <pre>${cartDetails}</pre>
+          <p>Esperamos que disfrutes tus productos.<br>
+          Nuestro equipo de ventas se pondrá en contacto contigo para coordinar la logística del envío.</p>
+        `,
       };
+
       await transporter.sendMail(mailOptionsUser);
 
       const mailOptionsSeller = {
         from: `LowCost ${process.env.EMAIL}`,
         to: sellerEmail,
-        subject: "Nueva Compra Realizada",
-        html: `<p>Se ha realizado una nueva compra en tu tienda en línea.</p>
-               <p>Detalles de la compra: ${cartDetails}</p>`,
+        subject: "Nueva Compra Realizada en LowCost Web",
+        html: `
+          <p>Hola Vendedor,</p>
+          <p>Se ha realizado una nueva compra en tu tienda en línea. Aquí están los detalles:</p>
+          <p>Detalles del Comprador:</p>
+          <pre>
+            Nombre: ${values.name}
+            Apellido: ${values.surname}
+            Email: ${values.email}
+            Teléfono: ${values.phone}
+            DNI: ${values.dni}
+            Dirección: ${values.street} ${values.streetNumber}, ${values.postCode}
+          </pre>
+          <p>Detalles de la Compra:</p>
+          <pre>${cartDetails}</pre>
+        `,
       };
+
       await transporter.sendMail(mailOptionsSeller);
 
       res.status(200).json({
@@ -244,7 +269,7 @@ module.exports = {
         message: "Compra finalizada y correos enviados correctamente",
       });
     } catch (error) {
-      console.log(error); // Registra el error en la consola para fines de depuración
+      console.log(error);
       return res.status(500).json({
         ok: false,
         error: "Hubo un error al procesar la compra y enviar correos",
