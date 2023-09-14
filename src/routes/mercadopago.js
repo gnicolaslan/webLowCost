@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const router = express.Router();
 const mercadopago = require('mercadopago');
 require('dotenv').config()
@@ -20,12 +21,12 @@ router.post("/create_preference", (req, res) => {
                 quantity: Number(quantity),
             }
         ],
-        statement_descriptor: "Low Cost",
-        binary_mode: true,
+        /* statement_descriptor: "Low Cost",
+        binary_mode: true, */
         back_urls: {
-            "success": "http://127.0.0.1:5173/",
-            "failure": "http://127.0.0.1:5173/",
-            "pending": "/feedback"
+            "success": "http://localhost:3000/feedback",
+            "failure": "http://localhost:3000/feedback",
+            "pending": "http://localhost:3000/feedback"
         },
         auto_return: "approved",
     };
@@ -39,6 +40,14 @@ router.post("/create_preference", (req, res) => {
             console.error(error);
             res.status(500).json({ error: 'Internal Server Error' });
         });
+
+    app.get('/feedback', function (req, res) {
+        res.json({
+            Payment: req.query.payment_id,
+            Status: req.query.status,
+            MerchantOrder: req.query.merchant_order_id
+        });
+    });
 });
 
 module.exports = router;
