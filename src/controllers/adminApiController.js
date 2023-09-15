@@ -46,7 +46,7 @@ module.exports = {
           body.offer = body.offer === 'on';
           body.visible = body.visible === 'on';
       
-          const newProduct = await createNewProduct(body, req.files.imageFile);
+          const newProduct = await createNewProduct(body);
       
           if (newProduct) {
             return res.status(200).json({
