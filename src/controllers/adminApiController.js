@@ -36,34 +36,37 @@ module.exports = {
     },
     createProduct: async (req, res) => {
         try {
-
-            const offer = req.body.offer === 'on' ? true : false;
-            req.body.offer = offer;
-
-            const visible = req.body.visible === 'on' ? true : false;
-            req.body.visible = visible;
-
-            const newProduct = await createNewProduct(req.body, req.files);
-
-            if (newProduct) {
-                return res.status(200).json({
-                    ok: true,
-                    data: newProduct,
-                    meta: {
-                        status: 200,
-                        url: `/api/product/detail/${newProduct.id}`,
-                    },
-                });
-            } else {
-                throw {
-                    status: 500,
-                    message: "Error al crear el producto",
-                };
-            }
+          if (!req.files || !req.files.imageFile) {
+            return res.status(400).send('No se han subido archivos.');
+          }
+      
+          const { body } = req;
+      
+          // Convierte 'offer' y 'visible' a booleanos
+          body.offer = body.offer === 'on';
+          body.visible = body.visible === 'on';
+      
+          const newProduct = await createNewProduct(body, req.files.imageFile);
+      
+          if (newProduct) {
+            return res.status(200).json({
+              ok: true,
+              data: newProduct,
+              meta: {
+                status: 200,
+                url: `/api/product/detail/${newProduct.id}`,
+              },
+            });
+          } else {
+            throw {
+              status: 500,
+              message: "Error al crear el producto",
+            };
+          }
         } catch (error) {
-            return createResponseError(res, error);
+          return createResponseError(res, error);
         }
-    },
+      },      
     deleteProduct: async (req, res) => {
         try {
             const { id } = req.params

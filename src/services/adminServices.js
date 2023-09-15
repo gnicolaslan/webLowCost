@@ -1,21 +1,23 @@
 const db = require("../database/models");
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require("cloudinary").v2;
 
 module.exports = {
   getAllUsers: async () => {
     try {
       const users = await db.User.findAll({
-        attributes : ['id','name','surname','email','checked','phone'],
-        include: {
-          model:db.Address,
-          attributes:['street','location','province','postalCode'],
-          as: 'address', 
-        },
-        include: {
-          model: db.Rol,
-          as:'rol',
-          attributes: ['name']
-        }
+        attributes: ["id", "name", "surname", "email", "checked", "phone"],
+        include: [
+          {
+            model: db.Address,
+            as: "address",
+            attributes: ["street", "numberAddress", "postalCode"],
+          },
+          {
+            model: db.Rol,
+            as: "rol",
+            attributes: ["name"],
+          },
+        ],
       });
 
       return users;
@@ -36,9 +38,9 @@ module.exports = {
           },
           {
             association: "brand",
-            attributes: ['id', 'name']
-          }
-        ]
+            attributes: ["id", "name"],
+          },
+        ],
       });
 
       return products;
@@ -52,9 +54,10 @@ module.exports = {
   createNewProduct: async (body, imageFiles) => {
     try {
       console.log("Datos recibidos en req.body:", body);
-      console.log("Datos de la imagen:", imageFiles)
+      console.log("Datos de la imagen:", imageFiles);
+  
       const {
-        name,
+        title,
         price,
         description,
         brandId,
@@ -63,7 +66,7 @@ module.exports = {
         offer,
         visible,
       } = body;
-
+  
       const imageUrls = [];
 
       // Subir cada imagen a Cloudinary y obtener las URLs generadas
@@ -76,7 +79,7 @@ module.exports = {
 
       // Crear el producto y almacenar el URL de la imagen
       const newProduct = await db.Product.create({
-        name: name,
+        title,
         price: +price,
         description: description,
         brandId: +brandId,
@@ -88,7 +91,6 @@ module.exports = {
       });
 
       return newProduct;
-
     } catch (error) {
       throw {
         status: error.status || 500,
@@ -156,14 +158,12 @@ module.exports = {
         },
         {
           where: {
-            id: id
-          }
+            id: id,
+          },
         }
       );
 
-      return editedProduct
-
-
+      return editedProduct;
     } catch (error) {
       throw {
         status: error.status || 500,
