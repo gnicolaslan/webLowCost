@@ -55,48 +55,4 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-// MERCADOPAGO
-
-/* mercadopago.configure({
-  access_token: "TEST-6965001100510479-082921-e79ae45c7c5622f585256d9ece237c1b-262734139",
-});
-
-app.post("http://localhost:3000/create_preference", (req, res) => {
-  const { description, price, quantity } = req.body;
-
-  let preference = {
-    items: [
-      {
-        title: description,
-        unit_price: Number(price),
-        quantity: Number(quantity),
-      }
-    ],
-    back_urls: {
-      "success": "http://localhost:3000/feedback",
-      "failure": "http://localhost:3000/feedback",
-      "pending": "http://localhost:3000/feedback"
-    },
-    auto_return: "approved",
-  };
-
-  mercadopago.preferences.create(preference)
-    .then(function (response) {
-      res.json({
-        id: response.body.id
-      });
-    }).catch(function (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    });
-});
-
-app.get('/feedback', function (req, res) {
-  res.json({
-    Payment: req.query.payment_id,
-    Status: req.query.status,
-    MerchantOrder: req.query.merchant_order_id
-  });
-}); */
-
 module.exports = app;

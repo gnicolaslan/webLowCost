@@ -9,7 +9,7 @@ const upload = multer({ dest: './public/uploads/' })
 router
     .get('/users', showListUsers)
     .get('/products', showListProducts)
-    .post('/create', upload.array('imageFile', 3), createProduct)
+    .post('/create', upload.array('imageFiles', 3), createProduct)
     .delete('/:id', deleteProduct)
     .get('/edit/:id', getEditProduct)
     .put('/edit/:id', saveEditProduct)
