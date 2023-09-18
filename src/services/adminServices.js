@@ -5,17 +5,19 @@ module.exports = {
   getAllUsers: async () => {
     try {
       const users = await db.User.findAll({
-        attributes: ['id', 'name', 'surname', 'email', 'checked', 'phone'],
-        include: {
-          model: db.Address,
-          attributes: ['street', 'location', 'province', 'postalCode'],
-          as: 'address',
-        },
-        include: {
-          model: db.Rol,
-          as: 'rol',
-          attributes: ['name']
-        }
+        attributes: ["id", "name", "surname", "email", "checked", "phone"],
+        include: [
+          {
+            model: db.Address,
+            as: "address",
+            attributes: ["street", "numberAddress", "postalCode"],
+          },
+          {
+            model: db.Rol,
+            as: "rol",
+            attributes: ["name"],
+          },
+        ],
       });
 
       return users;
@@ -53,7 +55,7 @@ module.exports = {
     try {
       console.log("Datos recibidos en req.body:", body);
       console.log("Datos de la imagen:", imageFiles);
-  
+
       const {
         title,
         price,
@@ -64,7 +66,7 @@ module.exports = {
         offer,
         visible,
       } = body;
-  
+
       const imageUrls = [];
 
       // Subir cada imagen a Cloudinary y obtener las URLs generadas
