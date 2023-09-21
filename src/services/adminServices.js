@@ -53,20 +53,7 @@ module.exports = {
   },
   createNewProduct: async (body, imageFiles) => {
     try {
-      console.log("Datos recibidos en req.body:", body);
-      console.log("Datos de la imagen:", imageFiles);
-
-      const {
-        title,
-        price,
-        description,
-        brandId,
-        categoryId,
-        stock,
-        offer,
-        visible,
-      } = body;
-
+      const { title, price, description, brandId, categoryId, stock, offer, visible } = body;
       const imageUrls = [];
 
       // Subir cada imagen a Cloudinary y obtener las URLs generadas
@@ -79,7 +66,7 @@ module.exports = {
 
       // Crear el producto y almacenar el URL de la imagen
       const newProduct = await db.Product.create({
-        title,
+        name:title,
         price: +price,
         description: description,
         brandId: +brandId,

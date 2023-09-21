@@ -36,9 +36,9 @@ module.exports = {
     },
     createProduct: async (req, res) => {
         try {
-          if (!req.files || !req.files.imageFile) {
+        /*   if (!req.files || !req.files.imageFile) {
             return res.status(400).send('No se han subido archivos.');
-          }
+          } */
       
           const { body } = req;
       
@@ -46,7 +46,7 @@ module.exports = {
           body.offer = body.offer === 'on';
           body.visible = body.visible === 'on';
       
-          const newProduct = await createNewProduct(body);
+          const newProduct = await createNewProduct(req.body,req.files);
       
           if (newProduct) {
             return res.status(200).json({
