@@ -23,6 +23,16 @@ module.exports = {
 
     getProductByKeyword: async (keyword) => {
         try {
+            let options = [
+                {
+                    association: 'category',
+                    attributes: ['name'],
+                },
+                {
+                    association: 'brand',
+                    attributes: ['name'],
+                },
+            ]
             const product = await db.Product.findAll({
 
                 where: {
@@ -38,7 +48,11 @@ module.exports = {
                             }
                         }
                     ]
-                }
+                },
+                include: options, 
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'weight', 'width', 'brandId', 'categoryId','height','length'],
+                },
             });
             return product
         } catch (error) {

@@ -61,7 +61,6 @@ module.exports = {
           message: "Por favor, proporcione un keyword válido en la consulta.",
         });
       }
-
       const result = await getProductByKeyword(keyword);
 
       if (result.length === 0) {
