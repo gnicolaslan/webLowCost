@@ -106,7 +106,7 @@ module.exports = {
     },
     saveEditProduct: async (req, res) => {
         try {
-            const { id } = req.params
+            const id = req.params.id;
             const saveProduct = await editProduct(req.body, id)
 
             return res.status(200).json({
@@ -114,7 +114,7 @@ module.exports = {
                 meta: {
                     status: 200,
                     total: 1,
-                    url: `/api/product/detail/${id}`
+                    url: `/api/products/${id}`
                 },
                 data: {
                     editedProduct: saveProduct,

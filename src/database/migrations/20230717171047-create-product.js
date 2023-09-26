@@ -24,18 +24,6 @@ module.exports = {
       categoryId: {
         type: Sequelize.INTEGER
       },
-      weight: {
-        type: Sequelize.INTEGER
-      },
-      height: {
-        type: Sequelize.INTEGER
-      },
-      width: {
-        type: Sequelize.INTEGER
-      },
-      length: {
-        type: Sequelize.INTEGER
-      },
       stock: {
         type: Sequelize.INTEGER
       },

@@ -48,7 +48,6 @@ module.exports = {
   update: async (req, res) => {
     try {
       const id = req.params.id;
-      //console.log(id);
       const { name, surname, phone, address } = req.body;
       const userUpdated = await updateInfoUser(id, { name, surname, phone });
 

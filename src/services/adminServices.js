@@ -121,27 +121,18 @@ module.exports = {
   },
   editProduct: async (body, id) => {
     try {
-      const {
-        name,
-        price,
-        description,
-        brandId,
-        categoryId,
-        stock,
-        offer,
-        visible,
-      } = body;
+      const { title, price, description, brandId, categoryId, stock, offer, visible } = body; 
 
       const editedProduct = await db.Product.update(
         {
-          name,
-          price: +price,
+          name: title,
+          price: Number(price),
           description,
           brandId: +brandId,
           categoryId: +categoryId,
           stock: +stock,
-          offer: +offer,
-          visible,
+          offer: offer,
+          visible: visible,
         },
         {
           where: {
@@ -149,7 +140,6 @@ module.exports = {
           },
         }
       );
-
       return editedProduct;
     } catch (error) {
       throw {
