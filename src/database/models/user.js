@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      
+
       // Relación con la tabla de Direcciones
       User.belongsTo(models.Address, {
         foreignKey: 'addressId',
@@ -37,13 +37,14 @@ module.exports = (sequelize, DataTypes) => {
     surname: DataTypes.STRING,
     password: DataTypes.STRING,
     token: DataTypes.STRING,
-    checked: { type : DataTypes.BOOLEAN, defaultValue : false },
+    checked: { type: DataTypes.BOOLEAN, defaultValue: false },
     phone: DataTypes.INTEGER,
     dni: DataTypes.INTEGER,
     email: DataTypes.STRING,
     resetCode: DataTypes.STRING,
     rolId: DataTypes.INTEGER,
-    addressId: { type: DataTypes.INTEGER, defaultValue: 2 }
+    addressId: { type: DataTypes.INTEGER, defaultValue: 2 },
+    shopping: { type: DataTypes.INTEGER, defaultValue: 0 }
   }, {
     sequelize,
     modelName: 'User',

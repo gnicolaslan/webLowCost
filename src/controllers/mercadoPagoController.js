@@ -1,6 +1,7 @@
 const express = require('express');
 const mercadopago = require('mercadopago');
 const transporter = require("../helpers/mailer");
+const db = require("../database/models");
 require('dotenv').config()
 
 const sendEmailsOnPurchase = async (values, cartItems) => {
@@ -111,6 +112,27 @@ module.exports = {
             if (status === 'approved' || collection_status === 'approved') {
                 if (userDataAndCart) {
                     const { values, cartItems } = userDataAndCart;
+                    const userEmail = values.email;
+
+                    const user = await db.User.findOne({
+                        where: {
+                            email: userEmail,
+                        },
+                    });
+
+                    if (user) {
+                        const totalPurchasedItems = cartItems.reduce(
+                            (total, item) => total + item.quantity,
+                            0
+                        );
+                        user.shopping += totalPurchasedItems;
+                        await user.save();
+                    } else {
+                        return res.status(400).json({
+                            ok: false,
+                            error: "Usuario no encontrado",
+                        });
+                    }
 
                     await sendEmailsOnPurchase(values, cartItems);
 

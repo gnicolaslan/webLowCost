@@ -260,6 +260,30 @@ module.exports = {
 
       await transporter.sendMail(mailOptionsSeller);
 
+      // Busca al usuario por su dirección de correo electrónico
+      const user = await db.User.findOne({
+        where: {
+          email: values.email,
+        },
+      });
+
+      if (!user) {
+        return res.status(400).json({
+          ok: false,
+          error: "Usuario no encontrado",
+        });
+      }
+
+      // Calcula la cantidad total de productos comprados
+      const totalPurchasedItems = cartItems.reduce(
+        (total, item) => total + item.quantity,
+        0
+      );
+
+      // Incrementa el contador de compras según la cantidad total de productos comprados
+      user.shopping += totalPurchasedItems;
+      await user.save();
+
       res.status(200).json({
         ok: true,
         data: {

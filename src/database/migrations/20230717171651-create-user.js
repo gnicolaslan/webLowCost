@@ -33,13 +33,16 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
-      resetCode : {
+      resetCode: {
         type: Sequelize.STRING
       },
       rolId: {
         type: Sequelize.INTEGER
       },
       addressId: {
+        type: Sequelize.INTEGER
+      },
+      shopping: {
         type: Sequelize.INTEGER
       },
       createdAt: {

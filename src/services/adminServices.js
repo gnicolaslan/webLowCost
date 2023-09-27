@@ -5,7 +5,7 @@ module.exports = {
   getAllUsers: async () => {
     try {
       const users = await db.User.findAll({
-        attributes: ["id", "name", "surname", "email", "checked", "phone"],
+        attributes: ["id", "name", "surname", "email", "checked", "phone", "shopping"],
         include: [
           {
             model: db.Address,
@@ -66,7 +66,7 @@ module.exports = {
 
       // Crear el producto y almacenar el URL de la imagen
       const newProduct = await db.Product.create({
-        name:title,
+        name: title,
         price: +price,
         description: description,
         brandId: +brandId,
@@ -121,7 +121,7 @@ module.exports = {
   },
   editProduct: async (body, id) => {
     try {
-      const { title, price, description, brandId, categoryId, stock, offer, visible } = body; 
+      const { title, price, description, brandId, categoryId, stock, offer, visible } = body;
 
       const editedProduct = await db.Product.update(
         {
