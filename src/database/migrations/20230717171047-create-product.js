@@ -15,6 +15,9 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
+      priceUSD: {
+        type: Sequelize.INTEGER
+      },
       description: {
         type: Sequelize.TEXT
       },

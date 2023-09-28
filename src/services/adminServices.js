@@ -53,7 +53,7 @@ module.exports = {
   },
   createNewProduct: async (body, imageFiles) => {
     try {
-      const { title, price, description, brandId, categoryId, stock, offer, visible } = body;
+      const { title, price, priceUSD,description, brandId, categoryId, stock, offer, visible } = body;
       const imageUrls = [];
 
       // Subir cada imagen a Cloudinary y obtener las URLs generadas
@@ -68,6 +68,7 @@ module.exports = {
       const newProduct = await db.Product.create({
         name: title,
         price: +price,
+        priceUSD: Number(priceUSD),
         description: description,
         brandId: +brandId,
         categoryId: +categoryId,
@@ -121,12 +122,13 @@ module.exports = {
   },
   editProduct: async (body, id) => {
     try {
-      const { title, price, description, brandId, categoryId, stock, offer, visible } = body;
+      const { title, price, priceUSD,description, brandId, categoryId, stock, offer, visible } = body;
 
       const editedProduct = await db.Product.update(
         {
           name: title,
           price: Number(price),
+          priceUSD: Number(priceUSD),
           description,
           brandId: +brandId,
           categoryId: +categoryId,

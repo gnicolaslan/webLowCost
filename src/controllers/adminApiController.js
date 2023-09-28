@@ -45,7 +45,6 @@ module.exports = {
             // Convierte 'offer' y 'visible' a booleanos
             body.offer = body.offer === true;
             body.visible = body.visible === true;
-            console.log(req.body)
             const newProduct = await createNewProduct(req.body, req.files);
 
             if (newProduct) {

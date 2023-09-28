@@ -65,7 +65,7 @@ module.exports = {
 
     getProductsByCategory: async (category) => {
         try {
-            const products = db.Product.findAll({
+            const products = await db.Product.findAll({
 
                 where: { categoryId: category }
             })
@@ -80,7 +80,7 @@ module.exports = {
 
     getProductsByBrand: async (brand) => {
         try {
-            const products = db.Product.findAll({
+            const products = await db.Product.findAll({
 
                 where: { brandId: brand }
             })
