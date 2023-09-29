@@ -48,12 +48,28 @@ module.exports = {
   update: async (req, res) => {
     try {
       const id = req.params.id;
-      const { name, surname, phone, address } = req.body;
-      const userUpdated = await updateInfoUser(id, { name, surname, phone });
+      const { name, surname, phone, dni, address, street, numberAddress, postCode } = req.body;
 
-      if (address) {
-        await userUpdated.setAddress(address);
-      }
+      console.log("Datos del cuerpo de la solicitud:", req.body);
+
+      const userUpdated = await updateInfoUser(id, { name, surname, dni, phone });
+
+      db.User.findByPk(id)
+        .then(user => {
+          const addressUpdate = db.Address.update(
+            {
+              street: street,
+              numberAddress: numberAddress,
+              postCode: postCode
+            },
+            {
+              where: {
+                id: id
+              }
+            }
+          )
+          Promise.all(([addressUpdate]))
+        })
 
       return res.status(200).json({
         ok: true,
@@ -63,7 +79,9 @@ module.exports = {
             id: userUpdated.id,
             name: userUpdated.name,
             surname: userUpdated.surname,
+            dni: userUpdated.dni,
             phone: userUpdated.phone,
+            address
           },
         },
         meta: {

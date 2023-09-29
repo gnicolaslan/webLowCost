@@ -15,7 +15,7 @@ module.exports = {
       numberAddress: {
         type: Sequelize.INTEGER
       },
-      postalCode: {
+      postCode: {
         type: Sequelize.INTEGER
       },
       createdAt: {

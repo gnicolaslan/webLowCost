@@ -25,10 +25,31 @@ module.exports = {
         name: dataUser.name,
         surname: dataUser.surname,
         phone: dataUser.phone,
+        dni: dataUser.dni,
       });
 
-      return userUpdated;
+      // Verifica si se proporcionó una dirección en los datos del usuario
+      if (dataUser.address) {
+        // Obtén la dirección actual del usuario o crea una nueva si no existe
+        let address = userUpdated.address;
+        if (!address) {
+          address = await db.Address.create({});
+          await userUpdated.setAddress(address);
+        }
 
+        // Actualiza los campos de la dirección
+        address.street = dataUser.address.street;
+        address.numberAddress = dataUser.address.numberAddress;
+        address.postalCode = dataUser.address.postalCode;
+
+        // Guarda la dirección actualizada
+        await address.save();
+      }
+
+      // Vuelve a cargar el usuario para asegurarte de que los cambios se reflejen correctamente
+      await userUpdated.reload();
+
+      return userUpdated;
     } catch (error) {
       console.log(error);
       throw {

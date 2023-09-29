@@ -8,12 +8,12 @@ const generateJWT = require("../helpers/generateJWT");
 
 const register = async (req, res) => {
   try {
-    const { name,surname, email,phone,password} = req.body;
+    const { name, surname, email, phone, password } = req.body;
     if (
-      [name,surname, email,phone,password].includes("") ||
+      [name, surname, email, phone, password].includes("") ||
       !name ||
       !surname ||
-      !email || 
+      !email ||
       !phone ||
       !password
     ) {
@@ -28,10 +28,17 @@ const register = async (req, res) => {
 
     const hashedPassword = await hash(password, 10);
 
+    const address = await db.Address.create({
+      street: null,
+      numberAddress: null,
+      postalCode: null,
+    });
+
     user = await db.User.create({
       ...req.body,
       password: hashedPassword,
       rolId: 2,
+      addressId: address.id,
     });
 
     user.token = generateTokenRandom();
@@ -89,10 +96,10 @@ const login = async (req, res) => {
 
 const profile = async (req, res) => {
   try {
-    const userId = req.params.id;  
-    const user = await db.User.findByPk(userId);  
+    const userId = req.params.id;
+    const user = await db.User.findByPk(userId);
     const address = await user.getAddress();
-    
+
     return res.status(200).json({
       ok: true,
       user: {

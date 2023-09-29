@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     resetCode: DataTypes.STRING,
     rolId: DataTypes.INTEGER,
-    addressId: { type: DataTypes.INTEGER, defaultValue: 2 },
+    addressId: DataTypes.INTEGER,
     shopping: { type: DataTypes.INTEGER, defaultValue: 0 }
   }, {
     sequelize,
