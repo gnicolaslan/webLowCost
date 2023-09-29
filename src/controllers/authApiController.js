@@ -31,7 +31,7 @@ const register = async (req, res) => {
     const address = await db.Address.create({
       street: null,
       numberAddress: null,
-      postalCode: null,
+      postCode: null,
     });
 
     user = await db.User.create({

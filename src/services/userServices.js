@@ -40,7 +40,7 @@ module.exports = {
         // Actualiza los campos de la dirección
         address.street = dataUser.address.street;
         address.numberAddress = dataUser.address.numberAddress;
-        address.postalCode = dataUser.address.postalCode;
+        address.postCode = dataUser.address.postCode;
 
         // Guarda la dirección actualizada
         await address.save();

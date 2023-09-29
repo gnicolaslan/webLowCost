@@ -10,7 +10,7 @@ module.exports = {
           {
             model: db.Address,
             as: "address",
-            attributes: ["street", "numberAddress", "postalCode"],
+            attributes: ["street", "numberAddress", "postCode"],
           },
           {
             model: db.Rol,
