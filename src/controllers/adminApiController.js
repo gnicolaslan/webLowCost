@@ -8,9 +8,7 @@ const {
   productToEdit,
   editProduct,
 } = require("../services/adminServices");
-const { Op } = require('sequelize');
-
-
+const { Op } = require("sequelize");
 
 module.exports = {
   showListUsers: async (req, res) => {
@@ -135,27 +133,59 @@ module.exports = {
   },
   editProductPrice: async (req, res) => {
     try {
-      const { startId, endId, newPrice } = req.body;
+      const { startId, endId, updateValue, isPercentage } = req.body;
 
       const parsedStartId = parseInt(startId);
       const parsedEndId = parseInt(endId);
-      const parsedNewPrice = parseInt(newPrice); 
+      const parsedUpdateValue = parseFloat(updateValue);
 
-      if (isNaN(parsedStartId) || isNaN(parsedEndId) || isNaN(parsedNewPrice)) {
+      if (
+        isNaN(parsedStartId) ||
+        isNaN(parsedEndId) ||
+        isNaN(parsedUpdateValue)
+      ) {
         throw {
           status: 400,
-          message: "startId, endId, and newPrice must be valid numbers.",
+          message: "startId, endId, and updateValue must be valid numbers.",
         };
       }
-      console.log(parsedStartId,parsedEndId,parsedNewPrice);
 
-      const updatedProducts = await db.Product.update(
-        { price: parsedNewPrice },
-        {
-          where: {
-            id: { [Op.between]: [parsedStartId, parsedEndId] },
+      const productsToUpdate = await db.Product.findAll({
+        where: {
+          id: { [Op.between]: [parsedStartId, parsedEndId] },
         },
-        }
+      });
+
+      if (!productsToUpdate || productsToUpdate.length === 0) {
+        throw {
+          status: 404,
+          message: "No products found within the specified range.",
+        };
+      }
+
+      const updatedProducts = await Promise.all(
+        productsToUpdate.map(async (product) => {
+          let newPrice;
+
+          if (isPercentage) {
+            newPrice = product.price + product.price * (parsedUpdateValue / 100);
+          } else {
+            newPrice = parsedUpdateValue;
+          }
+          
+
+          await product.update({ price: newPrice });
+          console.log("parsedUpdateValue:", parsedUpdateValue);
+          console.log("newPrice:", newPrice);
+
+          console.log(
+            "precio actual:",
+            product.price,
+            "nuevo precio:",
+            newPrice
+          );
+          return product;
+        })
       );
 
       return res.status(200).json({
@@ -163,7 +193,7 @@ module.exports = {
         message: "Prices updated successfully.",
         meta: {
           status: 200,
-          total: updatedProducts,
+          total: updatedProducts.length,
         },
       });
     } catch (error) {
