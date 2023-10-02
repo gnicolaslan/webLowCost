@@ -175,15 +175,6 @@ module.exports = {
           
 
           await product.update({ price: newPrice });
-          console.log("parsedUpdateValue:", parsedUpdateValue);
-          console.log("newPrice:", newPrice);
-
-          console.log(
-            "precio actual:",
-            product.price,
-            "nuevo precio:",
-            newPrice
-          );
           return product;
         })
       );
