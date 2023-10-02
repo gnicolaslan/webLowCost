@@ -45,15 +45,7 @@ module.exports = {
   },
   createProduct: async (req, res) => {
     try {
-      /*             if (!req.files || !req.files.imageFile) {
-                            return res.status(400).send('No se han subido archivos.');
-                        } */
-
       const { body } = req;
-
-      // Convierte 'offer' y 'visible' a booleanos
-      body.offer = body.offer === true;
-      body.visible = body.visible === true;
       const newProduct = await createNewProduct(req.body, req.files);
 
       if (newProduct) {
@@ -172,7 +164,7 @@ module.exports = {
           } else {
             newPrice = parsedUpdateValue;
           }
-          
+
 
           await product.update({ price: newPrice });
           return product;

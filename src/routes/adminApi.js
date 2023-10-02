@@ -7,12 +7,12 @@ const upload = multer({ dest: './public/uploads/' })
 
 /* /api/admin */
 router
+    .put('/edit/product-prices', editProductPrice)
     .get('/users', showListUsers)
     .get('/products', showListProducts)
     .post('/create', upload.array('imageFiles', 3), createProduct)
-    .put('/edit/product-prices',editProductPrice)
     .delete('/:id', deleteProduct)
-    .get('/edit/:id', getEditProduct)
     .put('/edit/:id', saveEditProduct)
+    .get('/edit/:id', getEditProduct)
 
 module.exports = router;

@@ -30,13 +30,19 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       price: DataTypes.INTEGER,
-      priceUSD: DataTypes.INTEGER, 
+      priceUSD: DataTypes.INTEGER,
       description: DataTypes.TEXT,
       brandId: DataTypes.INTEGER,
       categoryId: DataTypes.INTEGER,
       stock: DataTypes.INTEGER,
-      offer: DataTypes.BOOLEAN,
-      visible: DataTypes.BOOLEAN,
+      offer: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      visible: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
       imageUrls: DataTypes.TEXT
     },
     {
