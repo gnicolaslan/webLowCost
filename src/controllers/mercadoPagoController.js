@@ -49,7 +49,7 @@ const sendEmailsOnPurchase = async (values, cartItems) => {
           Email: ${values.email}
           Teléfono: ${values.phone}
           DNI: ${values.dni}
-          Dirección: ${values.street} ${values.streetNumber}, ${values.postCode}
+          Dirección: ${values.street} ${values.numberAddress}, ${values.postCode}
         </pre>
         <p>Detalles de la Compra:</p>
         <pre>${cartDetails}</pre>

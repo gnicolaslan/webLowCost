@@ -83,6 +83,7 @@ const login = async (req, res) => {
             id: user.dataValues.id,
             name: user.dataValues.name,
             email: user.dataValues.email,
+            rolId: user.dataValues.rolId
           },
         }),
       });
