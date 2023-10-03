@@ -155,5 +155,46 @@ module.exports = {
                 message: error.message
             }
         }
-    }
+    },
+
+    updateProductPricesByCategory: async (categoryId, updateValue, isPercentage) => {
+        try {
+          const category = await db.Category.findByPk(categoryId, {
+            include: {
+              model: db.Product,
+              as: 'products', 
+            },
+          });
+      
+          if (!category) {
+            throw {
+              status: 404,
+              message: "Category not found.",
+            };
+          }
+      
+          const updatedProducts = await Promise.all(
+            category.products.map(async (product) => {
+              let newPrice;
+      
+              if (isPercentage) {
+                newPrice = product.price + product.price * (updateValue / 100);
+              } else {
+                newPrice = updateValue;
+              }
+      
+              await product.update({ price: newPrice });
+              return product;
+            })
+          );
+      
+          return updatedProducts;
+        } catch (error) {
+          throw {
+            status: 500,
+            message: error.message,
+          };
+        }
+      },
+      
 }

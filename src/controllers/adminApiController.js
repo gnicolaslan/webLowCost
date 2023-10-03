@@ -9,6 +9,7 @@ const {
   editProduct,
 } = require("../services/adminServices");
 const { Op } = require("sequelize");
+const { updateProductPricesByCategory } = require("../services/productServices");
 
 module.exports = {
   showListUsers: async (req, res) => {
@@ -183,4 +184,35 @@ module.exports = {
       return createResponseError(res, error);
     }
   },
+  editProductPriceByCategory: async (req, res) => {
+    try {
+      const { categoryId, updateValue, isPercentage } = req.body;
+      console.log(categoryId,updateValue,isPercentage);
+  
+      if (!categoryId || !updateValue) {
+        throw {
+          status: 400,
+          message: "Category and updateValue are required fields.",
+        };
+      }
+  
+      const updatedProducts = await updateProductPricesByCategory(
+        categoryId,
+        updateValue,
+        isPercentage
+      );
+  
+      return res.status(200).json({
+        ok: true,
+        message: "Prices updated successfully by category.",
+        meta: {
+          status: 200,
+          total: updatedProducts.length,
+        },
+      });
+    } catch (error) {
+      return createResponseError(res, error);
+    }
+  },
+  
 };
