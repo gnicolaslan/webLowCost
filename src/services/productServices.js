@@ -66,9 +66,20 @@ module.exports = {
     getProductsByCategory: async (category) => {
         try {
             const products = await db.Product.findAll({
-
-                where: { categoryId: category }
-            })
+                where: { categoryId: category },
+                include: [
+                    {
+                        model: db.Brand,
+                        as: 'brand',
+                        attributes: ['id', 'name'] 
+                    },
+                    {
+                        model: db.Category,
+                        as: 'category',
+                        attributes: ['id', 'name'] 
+                    }
+                ]
+            });
             return products
         } catch (error) {
             throw {
