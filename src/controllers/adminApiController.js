@@ -9,7 +9,9 @@ const {
   editProduct,
 } = require("../services/adminServices");
 const { Op } = require("sequelize");
-const { updateProductPricesByCategory } = require("../services/productServices");
+const {
+  updateProductPricesByCategory,
+} = require("../services/productServices");
 const fs = require("fs");
 const path = require("path");
 
@@ -163,11 +165,11 @@ module.exports = {
           let newPrice;
 
           if (isPercentage) {
-            newPrice = product.price + product.price * (parsedUpdateValue / 100);
+            newPrice =
+              product.price + product.price * (parsedUpdateValue / 100);
           } else {
             newPrice = parsedUpdateValue;
           }
-
 
           await product.update({ price: newPrice });
           return product;
@@ -233,8 +235,14 @@ module.exports = {
       let errorOccurred = false; // Variable para rastrear errores
 
       files.forEach((file, index) => {
-        const imageFileName = `${Date.now()}-${index}${path.extname(file.originalname)}`;
-        const imagePath = path.resolve(__dirname, "../../public/images/horizontalBanners", imageFileName);
+        const imageFileName = `${Date.now()}-${index}${path.extname(
+          file.originalname
+        )}`;
+        const imagePath = path.resolve(
+          __dirname,
+          "../../public/images/horizontalBanners",
+          imageFileName
+        );
 
         // Mueve la imagen cargada a la carpeta "public/horizontalBanners"
         try {
@@ -272,10 +280,44 @@ module.exports = {
       });
     }
   },
+  deleteOldImages: async (req, res) => {
+    try {
+      const bannersFolder = path.resolve(
+        __dirname,
+        "../../public/images/horizontalBanners"
+      );
+  
+      const existingImages = fs.readdirSync(bannersFolder);
+  
+      for (const file of existingImages) {
+        const filePath = path.join(bannersFolder, file);
+  
+        try {
+          await fs.promises.unlink(filePath);
+        } catch (error) {
+          console.error("Error al eliminar la imagen:", error);
+        }
+      }
+  
+      return res.status(200).json({
+        ok: true,
+        message: "Imágenes eliminadas con éxito.",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        ok: false,
+        error: "Error al eliminar las imágenes: " + error.message,
+      });
+    }
+    
+  },
   getAllBanners: (req, res) => {
     try {
       const baseUrl = req.protocol + "://" + req.get("host"); // Obtiene la URL base del servidor
-      const horizontalBannersDir = path.resolve(__dirname, "../../public/images/horizontalBanners");
+      const horizontalBannersDir = path.resolve(
+        __dirname,
+        "../../public/images/horizontalBanners"
+      );
       const files = fs.readdirSync(horizontalBannersDir);
 
       // Construye rutas completas para las imágenes
@@ -288,5 +330,5 @@ module.exports = {
       console.error("Error al obtener las rutas de las imágenes:", error);
       res.status(500).json({ error: "Error al obtener las imágenes" });
     }
-  }
-}
+  },
+};
