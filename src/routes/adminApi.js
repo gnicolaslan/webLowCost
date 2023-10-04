@@ -24,9 +24,7 @@ router
   .post("/create", upload.array("imageFiles", 3), createProduct)
   .delete("/:id", deleteProduct)
   .put("/edit/:id", saveEditProduct)
-  .get("/edit/:id", getEditProduct);
-
-router
+  .get("/edit/:id", getEditProduct)
   .get("/horizontal-banners", getAllBanners)
 
 module.exports = router;
