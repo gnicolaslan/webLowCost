@@ -240,7 +240,7 @@ module.exports = {
         )}`;
         const imagePath = path.resolve(
           __dirname,
-          "../../public/images/horizontalBanners",
+          "../../public/images/StaticBanners",
           imageFileName
         );
 
@@ -286,19 +286,19 @@ module.exports = {
         __dirname,
         "../../public/images/horizontalBanners"
       );
-  
+
       const existingImages = fs.readdirSync(bannersFolder);
-  
+
       for (const file of existingImages) {
         const filePath = path.join(bannersFolder, file);
-  
+
         try {
           await fs.promises.unlink(filePath);
         } catch (error) {
           console.error("Error al eliminar la imagen:", error);
         }
       }
-  
+
       return res.status(200).json({
         ok: true,
         message: "Imágenes eliminadas con éxito.",
@@ -309,7 +309,6 @@ module.exports = {
         error: "Error al eliminar las imágenes: " + error.message,
       });
     }
-    
   },
   getAllBanners: (req, res) => {
     try {
@@ -329,6 +328,125 @@ module.exports = {
     } catch (error) {
       console.error("Error al obtener las rutas de las imágenes:", error);
       res.status(500).json({ error: "Error al obtener las imágenes" });
+    }
+  },
+  getStaticBanners: async (req, res) => {
+    try {
+      const staticBannersFolder = path.resolve(
+        __dirname,
+        "../../public/images/StaticBanners"
+      );
+
+      const existingImages = fs.readdirSync(staticBannersFolder);
+
+      const staticBanners = existingImages.map((file) => {
+        return {
+          fileName: file,
+          path: `http://localhost:3000/images/StaticBanners/${file}`,
+        };
+      });
+
+      return res.status(200).json({
+        ok: true,
+        data: staticBanners,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        ok: false,
+        error: "Error al obtener los banners estáticos: " + error.message,
+      });
+    }
+  },
+  uploadBannerImagesStatic: (req, res) => {
+    try {
+      const { files } = req;
+
+      console.log("archivos cargados:", files);
+
+      if (!files || files.length !== 3) {
+        return res.status(400).json({
+          ok: false,
+          error: "Debes cargar exactamente tres imágenes.",
+        });
+      }
+
+      const uploadedImages = [];
+      let errorOccurred = false; // Variable para rastrear errores
+
+      files.forEach((file, index) => {
+        const imageFileName = `${Date.now()}-${index}${path.extname(
+          file.originalname
+        )}`;
+        const imagePath = path.resolve(
+          __dirname,
+          "../../public/images/StaticBanners",
+          imageFileName
+        );
+
+        // Mueve la imagen cargada a la carpeta "public/StaticBanners"
+        try {
+          fs.renameSync(file.path, imagePath);
+          uploadedImages.push({
+            fileName: imageFileName,
+            path: `http://localhost:3000/images/StaticBanners/${imageFileName}`,
+          });
+        } catch (error) {
+          console.error("Error al renombrar el archivo:", error);
+          errorOccurred = true; // Marcar que se produjo un error
+        }
+      });
+
+      // Verificar si se produjo un error antes de enviar la respuesta
+      if (errorOccurred) {
+        return res.status(400).json({
+          ok: false,
+          error: "Hubo un problema al renombrar uno o más archivos.",
+        });
+      }
+
+      return res.status(200).json({
+        ok: true,
+        data: uploadedImages,
+        meta: {
+          status: 200,
+          total: uploadedImages.length,
+        },
+      });
+    } catch (error) {
+      return res.status(error.status || 500).json({
+        ok: false,
+        error: error.message || "Error al cargar las imágenes.",
+      });
+    }
+  },
+  deleteOldImagesStatic: async (req, res) => {
+    try {
+      const bannersFolder = path.resolve(
+        __dirname,
+        "../../public/images/StaticBanners"
+      );
+
+      const existingImages = fs.readdirSync(bannersFolder);
+
+      for (const file of existingImages) {
+        const filePath = path.join(bannersFolder, file);
+
+        try {
+          await fs.promises.unlink(filePath);
+        } catch (error) {
+          console.error("Error al eliminar la imagen:", error);
+        }
+      }
+
+      return res.status(200).json({
+        ok: true,
+        message: "Imágenes eliminadas con éxito.",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        ok: false,
+        error: "Error al eliminar las imágenes: " + error.message,
+      });
     }
   },
 };
