@@ -10,6 +10,8 @@ const {
 } = require("../services/adminServices");
 const { Op } = require("sequelize");
 const { updateProductPricesByCategory } = require("../services/productServices");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = {
   showListUsers: async (req, res) => {
@@ -187,21 +189,21 @@ module.exports = {
   editProductPriceByCategory: async (req, res) => {
     try {
       const { categoryId, updateValue, isPercentage } = req.body;
-      console.log(categoryId,updateValue,isPercentage);
-  
+      console.log(categoryId, updateValue, isPercentage);
+
       if (!categoryId || !updateValue) {
         throw {
           status: 400,
           message: "Category and updateValue are required fields.",
         };
       }
-  
+
       const updatedProducts = await updateProductPricesByCategory(
         categoryId,
         updateValue,
         isPercentage
       );
-  
+
       return res.status(200).json({
         ok: true,
         message: "Prices updated successfully by category.",
@@ -214,5 +216,77 @@ module.exports = {
       return createResponseError(res, error);
     }
   },
-  
-};
+  uploadBannerImages: (req, res) => {
+    try {
+      const { files } = req;
+
+      console.log("archivos cargados:", files);
+
+      if (!files || files.length !== 3) {
+        return res.status(400).json({
+          ok: false,
+          error: "Debes cargar exactamente tres imágenes.",
+        });
+      }
+
+      const uploadedImages = [];
+      let errorOccurred = false; // Variable para rastrear errores
+
+      files.forEach((file, index) => {
+        const imageFileName = `${Date.now()}-${index}${path.extname(file.originalname)}`;
+        const imagePath = path.resolve(__dirname, "../../public/images/horizontalBanners", imageFileName);
+
+        // Mueve la imagen cargada a la carpeta "public/horizontalBanners"
+        try {
+          fs.renameSync(file.path, imagePath);
+          uploadedImages.push({
+            fileName: imageFileName,
+            path: `http://localhost:3000/images/horizontalBanners/${imageFileName}`,
+          });
+        } catch (error) {
+          console.error("Error al renombrar el archivo:", error);
+          errorOccurred = true; // Marcar que se produjo un error
+        }
+      });
+
+      // Verificar si se produjo un error antes de enviar la respuesta
+      if (errorOccurred) {
+        return res.status(400).json({
+          ok: false,
+          error: "Hubo un problema al renombrar uno o más archivos.",
+        });
+      }
+
+      return res.status(200).json({
+        ok: true,
+        data: uploadedImages,
+        meta: {
+          status: 200,
+          total: uploadedImages.length,
+        },
+      });
+    } catch (error) {
+      return res.status(error.status || 500).json({
+        ok: false,
+        error: error.message || "Error al cargar las imágenes.",
+      });
+    }
+  },
+  getAllBanners: (req, res) => {
+    try {
+      const baseUrl = req.protocol + "://" + req.get("host"); // Obtiene la URL base del servidor
+      const horizontalBannersDir = path.resolve(__dirname, "../../public/images/horizontalBanners");
+      const files = fs.readdirSync(horizontalBannersDir);
+
+      // Construye rutas completas para las imágenes
+      const imageUrls = files.map((file) => {
+        return baseUrl + "/images/horizontalBanners/" + file;
+      });
+
+      res.json(imageUrls);
+    } catch (error) {
+      console.error("Error al obtener las rutas de las imágenes:", error);
+      res.status(500).json({ error: "Error al obtener las imágenes" });
+    }
+  }
+}

@@ -21,6 +21,7 @@ const indexRouter = require('./routes/index');
 const usersApiRouter = require('./routes/usersApi');
 const productsApiRouter = require('./routes/productsApi')
 const adminRouter = require('./routes/adminApi');
+const imageUploadRoutes = require("./routes/uploadsBanners");
 const mercadopagoRouter = require('./routes/mercadopago')
 
 // view engine setup
@@ -31,12 +32,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/users', usersApiRouter);
 app.use('/api/products', productsApiRouter)
 app.use('/api/admin', adminRouter)
+app.use('/api/upload', imageUploadRoutes);
 app.use('/mp', mercadopagoRouter);
 
 // catch 404 and forward to error handler
