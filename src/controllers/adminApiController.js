@@ -240,7 +240,7 @@ module.exports = {
         )}`;
         const imagePath = path.resolve(
           __dirname,
-          "../../public/images/StaticBanners",
+          "../../public/images/horizontalBanners",
           imageFileName
         );
 
