@@ -4,6 +4,9 @@ const {
   uploadBannerImages,
   deleteOldImages,
   uploadBannerImagesStatic,
+  getAllBanners,
+  getStaticBanners,
+  deleteOldImagesStatic
 } = require("../controllers/adminApiController");
 const router = express.Router();
 const fs = require("fs");
@@ -24,10 +27,10 @@ const upload = multer({ storage });
 router
   .post("/upload-images", upload.array("images", 3), uploadBannerImages)
   .delete("/delete-images", deleteOldImages)
-  .post(
-    "/upload-images-static",
-    upload.array("images", 3),
-    uploadBannerImagesStatic
-  );
+  .get("/horizontal-banners", getAllBanners)
+
+  .post("/upload-images-static", upload.array("images", 3), uploadBannerImagesStatic)
+  .delete("/delete-static-images", deleteOldImagesStatic)
+  .get("/get-static-banners", getStaticBanners)
 
 module.exports = router;

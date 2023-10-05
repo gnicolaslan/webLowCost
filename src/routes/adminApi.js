@@ -9,8 +9,6 @@ const {
   saveEditProduct,
   editProductPrice,
   editProductPriceByCategory,
-  getAllBanners,
-  getStaticBanners
 } = require("../controllers/adminApiController");
 var router = express.Router();
 
@@ -26,7 +24,5 @@ router
   .delete("/:id", deleteProduct)
   .put("/edit/:id", saveEditProduct)
   .get("/edit/:id", getEditProduct)
-  .get("/horizontal-banners", getAllBanners)
-  .get("/get-static-banners",getStaticBanners)
 
 module.exports = router;
