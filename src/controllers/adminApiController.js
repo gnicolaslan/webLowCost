@@ -191,7 +191,6 @@ module.exports = {
   editProductPriceByCategory: async (req, res) => {
     try {
       const { categoryId, updateValue, isPercentage } = req.body;
-      console.log(categoryId, updateValue, isPercentage);
 
       if (!categoryId || !updateValue) {
         throw {
@@ -221,8 +220,6 @@ module.exports = {
   uploadBannerImages: (req, res) => {
     try {
       const { files } = req;
-
-      console.log("archivos cargados:", files);
 
       if (!files || files.length !== 3) {
         return res.status(400).json({
@@ -360,8 +357,6 @@ module.exports = {
   uploadBannerImagesStatic: (req, res) => {
     try {
       const { files } = req;
-
-      console.log("archivos cargados:", files);
 
       if (!files || files.length !== 3) {
         return res.status(400).json({

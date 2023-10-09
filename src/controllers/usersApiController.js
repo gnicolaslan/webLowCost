@@ -50,8 +50,6 @@ module.exports = {
       const id = req.params.id;
       const { name, surname, phone, dni, address, street, numberAddress, postCode } = req.body;
 
-      console.log("Datos del cuerpo de la solicitud:", req.body);
-
       const userUpdated = await updateInfoUser(id, { name, surname, dni, phone });
 
       db.User.findByPk(id)
@@ -179,7 +177,6 @@ module.exports = {
 
     try {
       const result = await transporter.sendMail(mailOptions);
-      console.log(result);
       res.status(200).json({ ok: true, message: "Mensaje enviado!" });
     } catch (error) {
       console.error(error);
@@ -217,8 +214,6 @@ module.exports = {
     try {
       const { values, cartItems } = req.body;
 
-      console.log('Datos recibidos en el servidor:', req.body);
-
       const userEmail = values.email;
       const sellerEmail = process.env.OWNER_EMAIL;
 
@@ -229,9 +224,6 @@ module.exports = {
           Cantidad: ${item.quantity}
         `;
       }).join("\n\n");
-
-      console.log("userEmail:", userEmail);
-      console.log("sellerEmail:", sellerEmail);
 
       if (!userEmail || !sellerEmail) {
         return res.status(400).json({
