@@ -17,7 +17,7 @@ cloudinary.config({
 const app = express();
 app.use(cors())
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index')
 const usersApiRouter = require('./routes/usersApi');
 const productsApiRouter = require('./routes/productsApi')
 const adminRouter = require('./routes/adminApi');
@@ -33,6 +33,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'dist')));
+
 
 app.use('/', indexRouter);
 app.use('/api/users', usersApiRouter);
@@ -40,6 +42,7 @@ app.use('/api/products', productsApiRouter)
 app.use('/api/admin', adminRouter)
 app.use('/api/upload', imageUploadRoutes);
 app.use('/mp', mercadopagoRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
