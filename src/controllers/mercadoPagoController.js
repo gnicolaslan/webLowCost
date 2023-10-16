@@ -83,9 +83,9 @@ module.exports = {
                     },
                 ],
                 back_urls: {
-                    "success": "http://localhost:3000/mp/success",
-                    "failure": "http://127.0.0.1:5173/purchase-denied",
-                    "pending": "http://localhost:3000/pending"
+                    "success": "https://gabriellanzillotti.wnpower.host/mp/success",
+                    "failure": "https://gabriellanzillotti.wnpower.host/purchase-denied",
+                    "pending": "https://gabriellanzillotti.wnpower.host/pending"
                 },
                 auto_return: "approved",
             });
@@ -136,7 +136,7 @@ module.exports = {
 
                     await sendEmailsOnPurchase(values, cartItems);
 
-                    res.redirect("http://127.0.0.1:5173/purchase-accepted");
+                    res.redirect("https://gabriellanzillotti.wnpower.host/purchase-accepted");
                 } else {
                     return res.status(400).json({
                         ok: false,
@@ -144,7 +144,7 @@ module.exports = {
                     });
                 }
             } else {
-                return res.redirect("http://127.0.0.1:5173/purchase-denied");
+                return res.redirect("https://gabriellanzillotti.wnpower.host/purchase-denied");
             }
         } catch (error) {
             console.log(error);
