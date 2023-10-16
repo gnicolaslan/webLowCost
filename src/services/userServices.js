@@ -46,7 +46,6 @@ module.exports = {
         await address.save();
       }
 
-      // Vuelve a cargar el usuario para asegurarte de que los cambios se reflejen correctamente
       await userUpdated.reload();
 
       return userUpdated;
