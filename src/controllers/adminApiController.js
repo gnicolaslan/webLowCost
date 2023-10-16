@@ -310,16 +310,19 @@ module.exports = {
   },
   getAllBanners: (req, res) => {
     try {
-      const baseUrl = req.protocol + "://" + req.get("host"); // Obtiene la URL base del servidor
       const horizontalBannersDir = path.resolve(
         __dirname,
         "../../public/images/horizontalBanners"
       );
+
       const files = fs.readdirSync(horizontalBannersDir);
 
       // Construye rutas completas para las imágenes
       const imageUrls = files.map((file) => {
-        return baseUrl + "/images/horizontalBanners/" + file;
+        return {
+          fileName: file,
+          path: `https://gabriellanzillotti.wnpower.host/images/horizontalBanners/${file}`,
+        }
       });
 
       res.json(imageUrls);
