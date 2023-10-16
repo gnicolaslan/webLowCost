@@ -308,7 +308,7 @@ module.exports = {
       });
     }
   },
-  getAllBanners: (req, res) => {
+  getAllBanners: async (req, res) => {
     try {
       const horizontalBannersDir = path.resolve(
         __dirname,
@@ -317,7 +317,6 @@ module.exports = {
 
       const files = fs.readdirSync(horizontalBannersDir);
 
-      // Construye rutas completas para las imágenes
       const imageUrls = files.map((file) => {
         return {
           fileName: file,
@@ -325,10 +324,15 @@ module.exports = {
         }
       });
 
-      res.json(imageUrls);
+      return res.status(200).json({
+        ok: true,
+        data: staticBanners,
+      });
     } catch (error) {
-      console.error("Error al obtener las rutas de las imágenes:", error);
-      res.status(500).json({ error: "Error al obtener las imágenes" });
+      return res.status(500).json({
+        ok: false,
+        error: "Error al obtener los banners carrusel: " + error.message,
+      });
     }
   },
   getStaticBanners: async (req, res) => {
