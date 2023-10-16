@@ -326,7 +326,7 @@ module.exports = {
 
       return res.status(200).json({
         ok: true,
-        data: staticBanners,
+        data: imageUrls,
       });
     } catch (error) {
       return res.status(500).json({
