@@ -101,11 +101,11 @@ module.exports = {
       const userExist = await verifyUserByEmail(req.body.email, req.body);
 
       if (!userExist) {
-        return res.status(400).json({
+        return res.status(404).json({
           ok: false,
           error: {
             status: 404,
-            message: `The User with that ${email} was not found!`,
+            message: `El usuario con el correo electrónico ${req.body.email} no fue encontrado.`,
           },
         });
       }
