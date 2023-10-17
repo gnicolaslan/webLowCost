@@ -94,8 +94,13 @@ module.exports = {
           image: 'Cocinas.png',
           createdAt: new Date(),
           updatedAt: new Date()
-        }
-        ,
+        },
+        {
+          name: "otro",
+          image: 'general.png',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
       ],
       {});
 

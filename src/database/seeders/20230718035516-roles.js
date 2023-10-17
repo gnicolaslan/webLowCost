@@ -25,4 +25,3 @@ module.exports = {
     await queryInterface.bulkDelete("Rols", null, {});
   },
 };
- */
