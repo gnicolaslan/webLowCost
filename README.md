@@ -17,13 +17,13 @@ El backend de Low Cost se desarrolló utilizando un conjunto de tecnologías y h
 
 3. **Base de Datos SQL (MySQL)**: Almacenamos datos críticos en una base de datos SQL para garantizar la integridad y consistencia de los datos. MySQL es el sistema de gestión de bases de datos que utilizamos.
 
-4. **Nodemailer**: Nodemailer se utiliza para el envío de correos electrónicos, lo que permite la comunicación con los usuarios y la notificación de eventos importantes.
+4. **Nodemailer**: Nodemailer se utiliza para el envío de correos electrónicos, lo que permite la comunicación con los usuarios, y tambien permitir al usuario cambiar su contraseña mediante un codigo recibido por email.
 
 5. **Bcrypt**: Para garantizar la seguridad de las contraseñas de los usuarios, utilizamos Bcrypt para el hash de contraseñas y la protección de credenciales.
 
 6. **CORS**: Para permitir peticiones externas y asegurar la interoperabilidad con el frontend, implementamos el manejo de CORS (Cross-Origin Resource Sharing).
 
-7. **Cloudinary y Multer**: Utilizamos Cloudinary y Multer para la gestión de imágenes en la nube y la subida de imágenes de productos.
+7. **Cloudinary y Multer**: Utilizamos Cloudinary y Multer para la gestión de imágenes en la nube y la subida de imágenes de productos. Ante cualquier duda, puede [verificar el guia de Cloudinary](https://github.com/gnicolaslan/webLowCost/blob/master/guia-cloudinary.md)
 
 8. **Sequelize**: Sequelize es un ORM (Object-Relational Mapping) que facilita la interacción con la base de datos MySQL y simplifica las operaciones de consulta.
 
@@ -92,3 +92,4 @@ Siga estos pasos para configurar y ejecutar el backend de Low Cost en su entorno
     # o
     yarn start
     ```
+7. Extra: Para mas informacion sobre el funcionamiento de la API, [puedes visitar su despectiva documentacion]().
