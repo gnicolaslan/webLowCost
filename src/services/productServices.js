@@ -10,6 +10,10 @@ module.exports = {
                         association: 'category',
                         attributes: ['id', 'name'],
                     },
+                    {
+                        association: 'brand',
+                        attributes: ['id', 'name'],
+                    },
                 ]
             });
             return product
