@@ -10,6 +10,10 @@ router.get('/store/*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
 });
 
+router.get('/store', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
+});
+
 router.get('/product/:id', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
 });
