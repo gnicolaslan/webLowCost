@@ -65,7 +65,7 @@ module.exports = {
 
     createPreference: async (req, res) => {
         mercadopago.configure({
-            access_token: "TEST-2938245235269496-091414-6edd5c1f1294b94467a89c6b720d2d7f-1479550679"
+            access_token: "APP_USR-2701458205734367-111118-ac8a2427a46bf5bde8459e2e89b13836-166859195"
         });
 
         const { description, price, quantity, values, cartItems } = req.body;
@@ -83,9 +83,12 @@ module.exports = {
                     },
                 ],
                 back_urls: {
-                    "success": "https://gabriellanzillotti.wnpower.host/mp/success",
-                    "failure": "https://gabriellanzillotti.wnpower.host/purchase-denied",
-                    "pending": "https://gabriellanzillotti.wnpower.host/pending"
+                    "success": "http://lowcostarg.com.ar/mp/success",
+                    "failure": "http://lowcostarg.com.ar/purchase-denied",
+                    "pending": "http://lowcostarg.com.ar/pending"
+                    /* "success": "http://localhost:3000/mp/success",
+                    "failure": "http://localhost:3000/purchase-denied",
+                    "pending": "http://localhost:3000/pending" */
                 },
                 auto_return: "approved",
             });
@@ -136,7 +139,8 @@ module.exports = {
 
                     await sendEmailsOnPurchase(values, cartItems);
 
-                    res.redirect("https://gabriellanzillotti.wnpower.host/purchase-accepted");
+                    /* res.redirect("http://localhost:3000/purchase-accepted"); */
+                    res.redirect("http://lowcostarg.com.ar/purchase-accepted");
                 } else {
                     return res.status(400).json({
                         ok: false,
@@ -144,7 +148,8 @@ module.exports = {
                     });
                 }
             } else {
-                return res.redirect("https://gabriellanzillotti.wnpower.host/purchase-denied");
+                /* return res.redirect("http://localhost:3000/purchase-denied"); */
+                return res.redirect("http://lowcostarg.com.ar/purchase-denied");
             }
         } catch (error) {
             console.log(error);
@@ -153,3 +158,4 @@ module.exports = {
     }
 
 }
+

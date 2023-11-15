@@ -247,7 +247,7 @@ module.exports = {
           uploadedImages.push({
             fileName: imageFileName,
             /* path: `http://localhost:3000/images/horizontalBanners/${imageFileName}`, */
-            path: `https://gabriellanzillotti.wnpower.host/images/horizontalBanners/${imageFileName}`,
+            path: `http://lowcostarg.com.ar/images/horizontalBanners/${imageFileName}`,
           });
         } catch (error) {
           console.error("Error al renombrar el archivo:", error);
@@ -320,7 +320,8 @@ module.exports = {
       const imageUrls = files.map((file) => {
         return {
           fileName: file,
-          path: `https://gabriellanzillotti.wnpower.host/images/horizontalBanners/${file}`,
+          /* path: `http://localhost:3000/images/horizontalBanners/${file}`, */
+          path: `http://lowcostarg.com.ar/images/horizontalBanners/${file}`,
         }
       });
 
@@ -348,7 +349,7 @@ module.exports = {
         return {
           fileName: file,
           /* path: `http://localhost:3000/images/StaticBanners/${file}`, */
-          path: `https://gabriellanzillotti.wnpower.host/images/StaticBanners/${file}`,
+          path: `http://lowcostarg.com.ar/images/StaticBanners/${file}`,
         };
       });
 
@@ -393,7 +394,7 @@ module.exports = {
           uploadedImages.push({
             fileName: imageFileName,
             /* path: `http://localhost:3000/images/StaticBanners/${imageFileName}`, */
-            path: `https://gabriellanzillotti.wnpower.host/images/StaticBanners/${imageFileName}`,
+            path: `http://lowcostarg.com.ar/images/StaticBanners/${imageFileName}`,
           });
         } catch (error) {
           console.error("Error al renombrar el archivo:", error);
