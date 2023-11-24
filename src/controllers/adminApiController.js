@@ -247,7 +247,7 @@ module.exports = {
           uploadedImages.push({
             fileName: imageFileName,
             /* path: `http://localhost:3000/images/horizontalBanners/${imageFileName}`, */
-            path: `http://lowcostarg.com.ar/images/horizontalBanners/${imageFileName}`,
+            path: `https://lowcostarg.com.ar/images/horizontalBanners/${imageFileName}`,
           });
         } catch (error) {
           console.error("Error al renombrar el archivo:", error);
@@ -321,7 +321,7 @@ module.exports = {
         return {
           fileName: file,
           /* path: `http://localhost:3000/images/horizontalBanners/${file}`, */
-          path: `http://lowcostarg.com.ar/images/horizontalBanners/${file}`,
+          path: `https://lowcostarg.com.ar/images/horizontalBanners/${file}`,
         }
       });
 
@@ -349,7 +349,7 @@ module.exports = {
         return {
           fileName: file,
           /* path: `http://localhost:3000/images/StaticBanners/${file}`, */
-          path: `http://lowcostarg.com.ar/images/StaticBanners/${file}`,
+          path: `https://lowcostarg.com.ar/images/StaticBanners/${file}`,
         };
       });
 
@@ -394,7 +394,7 @@ module.exports = {
           uploadedImages.push({
             fileName: imageFileName,
             /* path: `http://localhost:3000/images/StaticBanners/${imageFileName}`, */
-            path: `http://lowcostarg.com.ar/images/StaticBanners/${imageFileName}`,
+            path: `https://lowcostarg.com.ar/images/StaticBanners/${imageFileName}`,
           });
         } catch (error) {
           console.error("Error al renombrar el archivo:", error);

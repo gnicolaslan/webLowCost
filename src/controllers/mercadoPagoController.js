@@ -83,9 +83,9 @@ module.exports = {
                     },
                 ],
                 back_urls: {
-                    "success": "http://lowcostarg.com.ar/mp/success",
-                    "failure": "http://lowcostarg.com.ar/purchase-denied",
-                    "pending": "http://lowcostarg.com.ar/pending"
+                    "success": "https://lowcostarg.com.ar/mp/success",
+                    "failure": "https://lowcostarg.com.ar/purchase-denied",
+                    "pending": "https://lowcostarg.com.ar/pending"
                     /* "success": "http://localhost:3000/mp/success",
                     "failure": "http://localhost:3000/purchase-denied",
                     "pending": "http://localhost:3000/pending" */
@@ -140,7 +140,7 @@ module.exports = {
                     await sendEmailsOnPurchase(values, cartItems);
 
                     /* res.redirect("http://localhost:3000/purchase-accepted"); */
-                    res.redirect("http://lowcostarg.com.ar/purchase-accepted");
+                    res.redirect("https://lowcostarg.com.ar/purchase-accepted");
                 } else {
                     return res.status(400).json({
                         ok: false,
@@ -149,7 +149,7 @@ module.exports = {
                 }
             } else {
                 /* return res.redirect("http://localhost:3000/purchase-denied"); */
-                return res.redirect("http://lowcostarg.com.ar/purchase-denied");
+                return res.redirect("https://lowcostarg.com.ar/purchase-denied");
             }
         } catch (error) {
             console.log(error);
