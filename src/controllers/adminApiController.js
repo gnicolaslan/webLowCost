@@ -147,11 +147,17 @@ module.exports = {
         };
       }
 
+      console.log("datos del body", parsedStartId, parsedEndId, parsedUpdateValue);
+
       const productsToUpdate = await db.Product.findAll({
         where: {
-          id: { [Op.between]: [parsedStartId, parsedEndId] },
+          id: {
+            [Op.between]: [parsedStartId, parsedEndId],
+          },
         },
       });
+
+      console.log("productos a actualizar", productsToUpdate);
 
       if (!productsToUpdate || productsToUpdate.length === 0) {
         throw {
@@ -171,10 +177,14 @@ module.exports = {
             newPrice = parsedUpdateValue;
           }
 
+          console.log("dentro del mapeo", isPercentage, newPrice);
+
           await product.update({ price: newPrice });
           return product;
         })
       );
+
+      console.log("datos actualizados", updatedProducts);
 
       return res.status(200).json({
         ok: true,
