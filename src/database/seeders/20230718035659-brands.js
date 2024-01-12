@@ -46,6 +46,7 @@ module.exports = {
         { name: "LG", image: 'lg.svg', createdAt: new Date(), updatedAt: new Date() },
         { name: "Liliana", image: 'liliana.svg', createdAt: new Date(), updatedAt: new Date() },
         { name: "Lumer", image: 'lumer.svg', createdAt: new Date(), updatedAt: new Date() },
+        { name: "Lusqtoff", image: 'otros.svg', createdAt: new Date(), updatedAt: new Date() },
         { name: "Magiclick", image: 'magiclick.svg', createdAt: new Date(), updatedAt: new Date() },
         { name: "Mega Express", image: 'megaexpress.svg', createdAt: new Date(), updatedAt: new Date() },
         { name: "Millenium", image: 'millenium.svg', createdAt: new Date(), updatedAt: new Date() },
